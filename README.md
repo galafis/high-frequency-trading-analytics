@@ -1,732 +1,423 @@
-# 🇧🇷 Sistema de Trading de Alta Frequência e Analytics
+# High-Frequency Trading Analytics
 
-![Status do Projeto](https://img.shields.io/badge/Status-Ativo-brightgreen)
-![Versão](https://img.shields.io/badge/Versão-1.0.0-blue)
-![Licença](https://img.shields.io/badge/Licença-MIT-green)
-![Linguagens](https://img.shields.io/badge/Linguagens-Python%20|%20C++%20|%20Julia-orange)
+![Python](https://img.shields.io/badge/Python-3776AB?style=flat&logo=python&logoColor=white)
+![PyTorch](https://img.shields.io/badge/PyTorch-EE4C2C?style=flat&logo=pytorch&logoColor=white)
+![NumPy](https://img.shields.io/badge/numpy-%23013243.svg?style=flat&logo=numpy&logoColor=white)
+![Pandas](https://img.shields.io/badge/pandas-%23150458.svg?style=flat&logo=pandas&logoColor=white)
+![Jupyter](https://img.shields.io/badge/Jupyter-F37626.svg?style=flat&logo=Jupyter&logoColor=white)
+![License](https://img.shields.io/badge/license-MIT-blue.svg)
 
-Um sistema completo de trading de alta frequência e análise quantitativa, combinando algoritmos de ultra-baixa latência em C++ com modelos avançados de machine learning em Python e computação numérica de alta performance em Julia. Este projeto implementa estratégias de market making, arbitragem estatística e análise de microestrutura de mercado com foco em performance e precisão.
+Sistema avançado de análise quantitativa e trading de alta frequência com algoritmos de machine learning, reinforcement learning e análise de microestrutura de mercado para estratégias automatizadas.
 
-## 📋 Índice
+## 🎯 Visão Geral
 
-- [Visão Geral](#visão-geral)
-- [Funcionalidades](#funcionalidades)
-- [Tecnologias Utilizadas](#tecnologias-utilizadas)
-- [Arquitetura](#arquitetura)
-- [Estrutura do Projeto](#estrutura-do-projeto)
-- [Instalação](#instalação)
-- [Uso](#uso)
-- [Estratégias Implementadas](#estratégias-implementadas)
-- [Backtesting](#backtesting)
-- [Otimização](#otimização)
-- [Análise de Performance](#análise-de-performance)
-- [Contribuição](#contribuição)
-- [Licença](#licença)
-- [Contato](#contato)
+Plataforma completa de trading quantitativo que combina análise de dados financeiros em tempo real, modelos preditivos avançados e estratégias de execução automatizada para mercados de alta frequência.
 
-## 🔍 Visão Geral
+### ✨ Características Principais
 
-Este projeto implementa um sistema completo de trading de alta frequência (HFT) e análise quantitativa, projetado para operar em mercados financeiros com latência ultra-baixa (<1ms) e alta precisão. O sistema combina algoritmos de execução de alta performance escritos em C++ com modelos avançados de machine learning em Python e computação numérica de alta performance em Julia.
+- **🤖 Reinforcement Learning**: Agentes DQN, PPO e A3C para trading
+- **📊 Análise Quantitativa**: Modelos estatísticos e econométricos
+- **⚡ Baixa Latência**: Otimização para execução em microssegundos
+- **📈 Backtesting**: Framework robusto de teste histórico
+- **🔍 Microestrutura**: Análise de order book e market impact
+- **⚖️ Risk Management**: Gestão de risco em tempo real
 
-O sistema é capaz de processar e reagir a dados de mercado em tempo real, implementar diversas estratégias de trading algorítmico, realizar backtesting com dados históricos de alta frequência, otimizar parâmetros de estratégias e analisar a performance das operações.
+## 🛠️ Stack Tecnológico
 
-## ✨ Funcionalidades
+### Machine Learning & AI
+- **PyTorch**: Deep learning e reinforcement learning
+- **Scikit-learn**: Modelos de machine learning clássico
+- **TensorFlow**: Redes neurais alternativas
+- **Stable-Baselines3**: Algoritmos RL prontos
 
-- **Trading de Ultra-Baixa Latência**: Processamento de dados de mercado e execução de ordens com latência <1ms.
-- **Estratégias Avançadas**: Market making, arbitragem estatística, análise de microestrutura de mercado.
-- **Reinforcement Learning**: Algoritmos de RL (DQN, PPO, A3C) para otimização de execução e market making.
-- **Backtesting de Alta Fidelidade**: Simulação precisa de mercado com dados de nível 2 (order book).
-- **Análise de Microestrutura**: Modelagem de impacto de mercado, spread efetivo, toxicidade de fluxo.
-- **Otimização de Parâmetros**: Algoritmos genéticos e bayesianos para otimização de estratégias.
-- **Análise de Risco**: Cálculo de VaR, Expected Shortfall, stress testing em tempo real.
-- **Visualização Avançada**: Dashboards interativos para monitoramento de estratégias e análise de performance.
+### Análise Quantitativa
+- **NumPy**: Computação numérica otimizada
+- **Pandas**: Manipulação de dados financeiros
+- **SciPy**: Análise estatística avançada
+- **QuantLib**: Biblioteca de finanças quantitativas
 
-## 🛠️ Tecnologias Utilizadas
-
-### Linguagens de Programação
-- **C++**: Componentes de baixa latência, processamento de market data, execução de ordens.
-- **Python**: Modelos de ML, backtesting, análise de dados, visualização.
-- **Julia**: Computação numérica de alta performance, otimização, simulação.
-
-### Frameworks e Bibliotecas
-- **C++**:
-  - Boost, ZeroMQ, FlatBuffers para comunicação de baixa latência
-  - DPDK para processamento de rede otimizado
-  - Eigen para álgebra linear de alta performance
-  - OpenMP/TBB para paralelização
-
-- **Python**:
-  - NumPy, Pandas, SciPy para análise de dados
-  - PyTorch, TensorFlow para modelos de ML/RL
-  - Numba para aceleração de código Python
-  - Plotly, Dash para visualização interativa
-
-- **Julia**:
-  - JuMP para otimização matemática
-  - DifferentialEquations.jl para modelagem estocástica
-  - QuantLib.jl para modelagem financeira
-  - Flux.jl para deep learning
-
-### Infraestrutura
-- **Hardware Especializado**: Suporte para FPGA, GPU, e CPU de baixa latência
-- **Armazenamento de Dados**: InfluxDB para séries temporais, ClickHouse para análise
-- **Comunicação**: Protocolos FIX/FAST, multicast UDP, IPC de baixa latência
-- **Monitoramento**: Prometheus, Grafana para métricas em tempo real
-
-## 🏗️ Arquitetura
-
-O sistema segue uma arquitetura modular de baixo acoplamento, com componentes especializados para diferentes aspectos do trading de alta frequência:
-
-1. **Market Data Handler (C++)**: Processa feeds de dados de mercado em tempo real com latência ultra-baixa.
-2. **Strategy Engine (C++/Python)**: Implementa lógica de trading e gera sinais.
-3. **Execution Engine (C++)**: Gerencia a execução de ordens com otimização de latência.
-4. **Risk Manager (C++/Python)**: Monitora e controla exposição ao risco em tempo real.
-5. **Analytics Engine (Python/Julia)**: Realiza análises quantitativas e backtesting.
-6. **Optimization Engine (Julia)**: Otimiza parâmetros de estratégias.
-7. **Visualization Layer (Python)**: Dashboards para monitoramento e análise.
-
-```mermaid
-graph TD
-    A[Market Data Feeds] --> B(Market Data Handler C++)
-    B --> C{Order Book Manager}
-    C --> D[Strategy Engine]
-    D --> E{Signal Generator}
-    E --> F[Execution Engine]
-    F --> G{Order Router}
-    G --> H[Exchange Connectivity]
-    
-    C --> I[Risk Manager]
-    I --> F
-    
-    C --> J[Analytics Engine]
-    J --> K[Backtesting]
-    J --> L[Performance Analysis]
-    
-    C --> M[Optimization Engine]
-    M --> D
-    
-    subgraph Monitoring
-        N[Visualization Layer]
-        O[Metrics Collection]
-    end
-    
-    B --> O
-    D --> O
-    F --> O
-    I --> O
-    O --> N
-```
+### Dados e Performance
+- **Numba**: Compilação JIT para performance
+- **Cython**: Extensões C para código crítico
+- **Redis**: Cache de dados em tempo real
+- **InfluxDB**: Banco de dados de séries temporais
 
 ## 📁 Estrutura do Projeto
 
 ```
 high-frequency-trading-analytics/
 ├── src/
-│   ├── models/                # Modelos de ML/RL para previsão e execução
-│   ├── strategies/            # Implementações de estratégias de trading
-│   ├── data/                  # Processamento e gerenciamento de dados
-│   ├── backtesting/           # Framework de backtesting
-│   ├── optimization/          # Algoritmos de otimização de parâmetros
-│   ├── execution/             # Componentes de execução de ordens
-│   └── visualization/         # Dashboards e visualizações
-├── cpp/                       # Código C++ para componentes de baixa latência
-│   ├── market_data/           # Processamento de dados de mercado
-│   ├── order_book/            # Implementação de order book
-│   ├── execution/             # Engine de execução
-│   └── risk/                  # Gerenciamento de risco
-├── julia/                     # Código Julia para computação de alta performance
-│   ├── optimization/          # Otimização de parâmetros
-│   ├── simulation/            # Simulação de mercado
-│   └── models/                # Modelos quantitativos
-├── scripts/                   # Scripts utilitários
-├── config/                    # Arquivos de configuração
-├── data/                      # Dados de exemplo e datasets
-├── docs/                      # Documentação adicional
-├── tests/                     # Testes automatizados
-├── requirements.txt           # Dependências Python
-└── README.md                  # Este arquivo
+│   ├── models/                     # Modelos de ML/RL
+│   │   ├── reinforcement_learning.py  # Agentes RL (DQN, PPO, A3C)
+│   │   ├── predictive_models.py       # Modelos preditivos
+│   │   └── risk_models.py             # Modelos de risco
+│   ├── strategies/                 # Estratégias de trading
+│   │   ├── market_making.py           # Market making
+│   │   ├── arbitrage.py               # Arbitragem estatística
+│   │   └── momentum.py                # Estratégias de momentum
+│   ├── data/                       # Processamento de dados
+│   │   ├── market_data.py             # Dados de mercado
+│   │   ├── order_book.py              # Order book processing
+│   │   └── features.py                # Feature engineering
+│   ├── execution/                  # Execução de ordens
+│   │   ├── order_manager.py           # Gerenciamento de ordens
+│   │   ├── slippage.py                # Análise de slippage
+│   │   └── latency.py                 # Otimização de latência
+│   ├── backtesting/                # Framework de backtesting
+│   │   ├── engine.py                  # Engine principal
+│   │   ├── metrics.py                 # Métricas de performance
+│   │   └── visualization.py           # Visualizações
+│   └── utils/                      # Utilitários
+│       ├── config.py                  # Configurações
+│       ├── logger.py                  # Sistema de logs
+│       └── helpers.py                 # Funções auxiliares
+├── notebooks/                      # Jupyter notebooks
+├── tests/                          # Testes automatizados
+├── data/                           # Datasets e exemplos
+├── requirements.txt                # Dependências
+└── README.md                       # Documentação
 ```
 
-## 🚀 Instalação
+## 🚀 Quick Start
 
 ### Pré-requisitos
-- C++17 ou superior com compilador compatível (GCC 9+, Clang 10+)
-- Python 3.8+
-- Julia 1.6+
-- CMake 3.15+
-- Boost 1.70+
-- ZeroMQ 4.3+
-- CUDA 11+ (opcional, para aceleração GPU)
+
+- Python 3.9+
+- CUDA (opcional, para GPU acceleration)
+- Redis (para cache de dados)
 
 ### Instalação
 
+1. **Clone o repositório:**
 ```bash
-# Clone o repositório
 git clone https://github.com/galafis/high-frequency-trading-analytics.git
 cd high-frequency-trading-analytics
+```
 
-# Compilar componentes C++
-mkdir -p cpp/build && cd cpp/build
-cmake ..
-make -j$(nproc)
-cd ../..
-
-# Instalar dependências Python
+2. **Configure o ambiente:**
+```bash
 python -m venv venv
-source venv/bin/activate  # Linux/macOS
-# venv\Scripts\activate  # Windows
+source venv/bin/activate  # Linux/Mac
 pip install -r requirements.txt
-
-# Instalar pacotes Julia
-julia -e 'using Pkg; Pkg.activate("."); Pkg.instantiate()'
 ```
 
-## 📊 Uso
-
-### Executando o Sistema Completo
-
+3. **Configure dados de mercado:**
 ```bash
-# Iniciar o sistema completo (modo simulação)
-python scripts/run_system.py --mode simulation --config config/simulation.yaml
-
-# Iniciar o sistema completo (modo produção)
-python scripts/run_system.py --mode production --config config/production.yaml
+# Configurar API keys para dados
+export ALPHA_VANTAGE_API_KEY="your_api_key"
+export POLYGON_API_KEY="your_api_key"
 ```
 
-### Executando Componentes Individuais
-
+4. **Execute exemplo básico:**
 ```bash
-# Executar apenas o processador de market data
-./cpp/build/bin/market_data_processor --config config/market_data.yaml
-
-# Executar uma estratégia específica
-python src/strategies/run_strategy.py --strategy stat_arb --config config/strategies/stat_arb.yaml
-
-# Executar backtesting
-python src/backtesting/run_backtest.py --strategy market_making --data data/historical/btcusdt_202506.parquet --config config/backtest.yaml
-
-# Executar otimização de parâmetros
-julia julia/optimization/optimize_strategy.jl --strategy market_making --config config/optimization.yaml
+python src/examples/basic_strategy.py
 ```
 
-## 🧠 Estratégias Implementadas
+## 🤖 Reinforcement Learning para Trading
+
+### Agente DQN (Deep Q-Network)
+```python
+from src.models.reinforcement_learning import DQNAgent
+
+# Criar agente DQN
+agent = DQNAgent(
+    state_size=50,  # Features do mercado
+    action_size=3,  # Buy, Sell, Hold
+    learning_rate=0.001
+)
+
+# Treinar agente
+for episode in range(1000):
+    state = env.reset()
+    total_reward = 0
+    
+    while not done:
+        action = agent.act(state)
+        next_state, reward, done = env.step(action)
+        agent.remember(state, action, reward, next_state, done)
+        
+        state = next_state
+        total_reward += reward
+    
+    agent.replay()  # Treinar rede neural
+```
+
+### Agente PPO (Proximal Policy Optimization)
+```python
+from src.models.reinforcement_learning import PPOAgent
+
+# Agente PPO para trading contínuo
+ppo_agent = PPOAgent(
+    state_dim=50,
+    action_dim=1,  # Posição contínua [-1, 1]
+    lr_actor=0.0003,
+    lr_critic=0.001
+)
+
+# Treinar com dados históricos
+ppo_agent.train(
+    market_data=historical_data,
+    episodes=5000,
+    max_steps=1000
+)
+```
+
+## 📊 Estratégias de Trading
 
 ### Market Making
-- **Avellaneda-Stoikov**: Implementação do modelo clássico de market making com ajuste dinâmico de spread.
-- **RL-based Market Making**: Market making baseado em reinforcement learning (DQN, PPO).
-- **Adaptive Market Making**: Ajuste de parâmetros baseado em volatilidade e fluxo de ordens.
+```python
+from src.strategies.market_making import MarketMaker
+
+# Estratégia de market making
+mm_strategy = MarketMaker(
+    spread_target=0.001,  # 10 bps
+    inventory_limit=1000,
+    risk_aversion=0.5
+)
+
+# Executar estratégia
+orders = mm_strategy.generate_orders(
+    current_price=100.50,
+    order_book=order_book_data,
+    inventory=current_inventory
+)
+```
 
 ### Arbitragem Estatística
-- **Pairs Trading**: Trading de pares com cointegração e reversão à média.
-- **Statistical Factor Models**: Modelos de fatores para arbitragem estatística multi-ativo.
-- **Kalman Filter**: Estimação dinâmica de parâmetros para trading de pares.
-
-### Microestrutura de Mercado
-- **Order Flow Imbalance**: Previsão de movimentos de preço baseada em desequilíbrio de fluxo de ordens.
-- **Liquidity Provision**: Estratégias de provisão de liquidez com gerenciamento de inventário.
-- **Latency Arbitrage**: Exploração de diferenças de latência entre venues.
-
-## 📈 Backtesting
-
-O framework de backtesting suporta:
-
-- **Simulação de Order Book**: Reconstrução completa do order book para backtesting de alta fidelidade.
-- **Modelagem de Latência**: Simulação realista de latências de rede e execução.
-- **Impacto de Mercado**: Modelagem do impacto de ordens no mercado.
-- **Custos de Transação**: Inclusão de spreads, taxas e slippage.
-- **Análise de Performance**: Métricas detalhadas de performance (Sharpe, Sortino, drawdown, etc.).
-
 ```python
-# Exemplo de código para backtesting
-from src.backtesting import Backtest
-from src.strategies import MarketMakingStrategy
-from src.data import OrderBookDataLoader
+from src.strategies.arbitrage import StatisticalArbitrage
 
-# Carregar dados históricos de order book
-data_loader = OrderBookDataLoader("data/historical/btcusdt_level2_202506.parquet")
-order_book_data = data_loader.load()
-
-# Configurar estratégia
-strategy = MarketMakingStrategy(
-    spread_factor=0.002,
-    inventory_limit=10,
-    risk_aversion=0.9
+# Pairs trading
+pairs_strategy = StatisticalArbitrage(
+    lookback_window=252,  # 1 ano
+    entry_threshold=2.0,  # 2 desvios padrão
+    exit_threshold=0.5
 )
+
+# Identificar oportunidades
+signals = pairs_strategy.generate_signals(
+    asset1_prices=stock_a_prices,
+    asset2_prices=stock_b_prices
+)
+```
+
+## 📈 Análise de Microestrutura
+
+### Order Book Analysis
+```python
+from src.data.order_book import OrderBookAnalyzer
+
+# Analisar order book
+ob_analyzer = OrderBookAnalyzer()
+
+# Calcular métricas de liquidez
+liquidity_metrics = ob_analyzer.calculate_liquidity(
+    bids=order_book['bids'],
+    asks=order_book['asks'],
+    depth_levels=10
+)
+
+print(f"Bid-Ask Spread: {liquidity_metrics['spread']:.4f}")
+print(f"Market Depth: {liquidity_metrics['depth']:.2f}")
+print(f"Price Impact: {liquidity_metrics['impact']:.4f}")
+```
+
+### Market Impact Modeling
+```python
+from src.execution.market_impact import MarketImpactModel
+
+# Modelo de impacto de mercado
+impact_model = MarketImpactModel(
+    model_type='linear',
+    calibration_period=30  # dias
+)
+
+# Estimar impacto de ordem
+estimated_impact = impact_model.estimate_impact(
+    order_size=10000,
+    average_daily_volume=1000000,
+    volatility=0.02
+)
+```
+
+## 🔍 Backtesting Framework
+
+### Engine de Backtesting
+```python
+from src.backtesting.engine import BacktestEngine
+
+# Configurar backtest
+backtest = BacktestEngine(
+    start_date='2023-01-01',
+    end_date='2024-01-01',
+    initial_capital=1000000,
+    commission=0.001
+)
+
+# Adicionar estratégia
+backtest.add_strategy(mm_strategy)
 
 # Executar backtest
-backtest = Backtest(
-    strategy=strategy,
-    data=order_book_data,
-    commission=0.0002,
-    slippage=0.0001
-)
+results = backtest.run()
 
 # Analisar resultados
-results = backtest.run()
-results.plot_equity_curve()
-results.print_metrics()
+print(f"Total Return: {results['total_return']:.2%}")
+print(f"Sharpe Ratio: {results['sharpe_ratio']:.2f}")
+print(f"Max Drawdown: {results['max_drawdown']:.2%}")
 ```
 
-## 🔧 Otimização
-
-O sistema inclui ferramentas avançadas para otimização de parâmetros:
-
-- **Algoritmos Genéticos**: Otimização evolutiva de parâmetros de estratégias.
-- **Bayesian Optimization**: Otimização bayesiana para exploração eficiente do espaço de parâmetros.
-- **Grid/Random Search**: Métodos tradicionais de busca de parâmetros.
-- **Walk-Forward Analysis**: Validação de parâmetros em janelas temporais sucessivas.
-
-```julia
-# Exemplo de código Julia para otimização
-using JuMP, Ipopt, DataFrames
-
-# Definir função objetivo (Sharpe ratio)
-function objective(params)
-    # Executar backtest com os parâmetros
-    results = run_backtest(
-        strategy="market_making",
-        spread_factor=params[1],
-        inventory_limit=params[2],
-        risk_aversion=params[3]
-    )
-    return -results.sharpe_ratio  # Negativo porque queremos maximizar
-end
-
-# Configurar otimização
-model = Model(Ipopt.Optimizer)
-@variable(model, 0.0001 <= spread_factor <= 0.01)
-@variable(model, 1 <= inventory_limit <= 50)
-@variable(model, 0.1 <= risk_aversion <= 2.0)
-
-# Definir função objetivo
-register(model, :objective, 3, objective, autodiff=true)
-@NLobjective(model, Min, objective(spread_factor, inventory_limit, risk_aversion))
-
-# Executar otimização
-optimize!(model)
-
-# Obter parâmetros ótimos
-optimal_params = [
-    value(spread_factor),
-    value(inventory_limit),
-    value(risk_aversion)
-]
-println("Parâmetros ótimos: ", optimal_params)
-```
-
-## 📊 Análise de Performance
-
-O sistema fornece análise detalhada de performance:
-
-- **Métricas de Trading**: Sharpe, Sortino, Calmar, drawdown, win rate, profit factor.
-- **Análise de Execução**: VWAP, implementation shortfall, market impact.
-- **Análise de Risco**: VaR, Expected Shortfall, stress testing.
-- **Visualizações**: Equity curves, drawdown charts, trade distributions.
-
+### Métricas de Performance
 ```python
-# Exemplo de código para análise de performance
-from src.analytics import PerformanceAnalyzer
+from src.backtesting.metrics import PerformanceMetrics
 
-# Carregar resultados de trading
-results = PerformanceAnalyzer.load_results("results/market_making_202506.csv")
+# Calcular métricas avançadas
+metrics = PerformanceMetrics(returns=strategy_returns)
 
-# Calcular métricas
-metrics = results.calculate_metrics()
-print(f"Sharpe Ratio: {metrics.sharpe_ratio:.2f}")
-print(f"Max Drawdown: {metrics.max_drawdown:.2%}")
-print(f"Win Rate: {metrics.win_rate:.2%}")
-
-# Visualizar resultados
-results.plot_equity_curve()
-results.plot_drawdown()
-results.plot_trade_distribution()
-results.plot_pnl_by_hour()
+performance_report = {
+    'sharpe_ratio': metrics.sharpe_ratio(),
+    'sortino_ratio': metrics.sortino_ratio(),
+    'calmar_ratio': metrics.calmar_ratio(),
+    'var_95': metrics.value_at_risk(confidence=0.95),
+    'cvar_95': metrics.conditional_var(confidence=0.95)
+}
 ```
 
-## 👥 Contribuição
+## ⚡ Otimização de Performance
 
-Contribuições são bem-vindas! Por favor, sinta-se à vontade para enviar pull requests, criar issues ou sugerir melhorias.
+### Compilação JIT com Numba
+```python
+from numba import jit
+import numpy as np
 
-1. Faça um fork do projeto
-2. Crie sua branch de feature (`git checkout -b feature/amazing-feature`)
-3. Commit suas mudanças (`git commit -m 'Add some amazing feature'`)
-4. Push para a branch (`git push origin feature/amazing-feature`)
-5. Abra um Pull Request
+@jit(nopython=True)
+def fast_moving_average(prices, window):
+    """Moving average otimizada com Numba"""
+    n = len(prices)
+    ma = np.empty(n)
+    
+    for i in range(window-1, n):
+        ma[i] = np.mean(prices[i-window+1:i+1])
+    
+    return ma
+
+# Uso
+fast_ma = fast_moving_average(price_data, 20)
+```
+
+### Processamento Paralelo
+```python
+from concurrent.futures import ProcessPoolExecutor
+import multiprocessing as mp
+
+def parallel_backtest(strategy_params):
+    """Backtest paralelo para otimização de parâmetros"""
+    with ProcessPoolExecutor(max_workers=mp.cpu_count()) as executor:
+        futures = []
+        
+        for params in strategy_params:
+            future = executor.submit(run_single_backtest, params)
+            futures.append(future)
+        
+        results = [future.result() for future in futures]
+    
+    return results
+```
+
+## 🔧 Configuração e Deploy
+
+### Configuração de Produção
+```python
+# config/production.py
+TRADING_CONFIG = {
+    'max_position_size': 10000,
+    'risk_limit': 0.02,  # 2% do capital
+    'latency_threshold': 1000,  # microsegundos
+    'data_frequency': '1ms'
+}
+
+EXECUTION_CONFIG = {
+    'order_type': 'limit',
+    'time_in_force': 'IOC',
+    'max_slippage': 0.0005
+}
+```
+
+### Monitoramento em Tempo Real
+```python
+from src.utils.monitoring import TradingMonitor
+
+# Monitor de trading
+monitor = TradingMonitor()
+
+# Alertas automáticos
+monitor.add_alert(
+    metric='drawdown',
+    threshold=0.05,  # 5%
+    action='stop_trading'
+)
+
+monitor.add_alert(
+    metric='latency',
+    threshold=5000,  # 5ms
+    action='switch_venue'
+)
+```
+
+## 🧪 Testes e Validação
+
+### Executar Testes
+```bash
+# Testes unitários
+pytest tests/unit/
+
+# Testes de integração
+pytest tests/integration/
+
+# Testes de performance
+pytest tests/performance/
+
+# Testes de estratégias
+pytest tests/strategies/
+```
+
+### Validação de Modelos
+```bash
+# Validação cruzada de modelos
+python scripts/validate_models.py --model dqn --periods 10
+
+# Teste de robustez
+python scripts/robustness_test.py --strategy market_making
+```
+
+## 📊 Casos de Uso Avançados
+
+### 1. Crypto Market Making
+- Market making em exchanges de criptomoedas
+- Gestão de inventory multi-asset
+- Arbitragem cross-exchange
+
+### 2. Equity Statistical Arbitrage
+- Pairs trading em ações
+- Basket trading com ETFs
+- Mean reversion strategies
+
+### 3. FX High-Frequency Trading
+- Trading em mercado de câmbio
+- Carry trade automatizado
+- News-based trading
 
 ## 📄 Licença
 
-Este projeto está licenciado sob a licença MIT - veja o arquivo [LICENSE](LICENSE) para detalhes.
+Este projeto está licenciado sob a Licença MIT - veja o arquivo [LICENSE](LICENSE) para detalhes.
 
-## 📞 Contato
+## 👨‍💻 Autor
 
-Gabriel Demetrios Lafis - [GitHub](https://github.com/galafis)
+**Gabriel Demetrios Lafis**
 
-Link do projeto: [https://github.com/galafis/high-frequency-trading-analytics](https://github.com/galafis/high-frequency-trading-analytics)
+- GitHub: [@galafis](https://github.com/galafis)
+- Email: gabrieldemetrios@gmail.com
 
 ---
 
-# 🇬🇧 High-Frequency Trading Analytics System
-
-![Project Status](https://img.shields.io/badge/Status-Active-brightgreen)
-![Version](https://img.shields.io/badge/Version-1.0.0-blue)
-![License](https://img.shields.io/badge/License-MIT-green)
-![Languages](https://img.shields.io/badge/Languages-Python%20|%20C++%20|%20Julia-orange)
-
-A complete high-frequency trading and quantitative analysis system, combining ultra-low latency algorithms in C++ with advanced machine learning models in Python and high-performance numerical computing in Julia. This project implements market making strategies, statistical arbitrage, and market microstructure analysis with a focus on performance and accuracy.
-
-## 📋 Table of Contents
-
-- [Overview](#overview)
-- [Features](#features)
-- [Technologies Used](#technologies-used)
-- [Architecture](#architecture)
-- [Project Structure](#project-structure)
-- [Installation](#installation)
-- [Usage](#usage)
-- [Implemented Strategies](#implemented-strategies)
-- [Backtesting](#backtesting)
-- [Optimization](#optimization)
-- [Performance Analysis](#performance-analysis)
-- [Contributing](#contributing)
-- [License](#license)
-- [Contact](#contact)
-
-## 🔍 Overview
-
-This project implements a complete high-frequency trading (HFT) and quantitative analysis system, designed to operate in financial markets with ultra-low latency (<1ms) and high precision. The system combines high-performance execution algorithms written in C++ with advanced machine learning models in Python and high-performance numerical computing in Julia.
-
-The system is capable of processing and reacting to market data in real-time, implementing various algorithmic trading strategies, performing backtesting with high-frequency historical data, optimizing strategy parameters, and analyzing trading performance.
-
-## ✨ Features
-
-- **Ultra-Low Latency Trading**: Market data processing and order execution with <1ms latency.
-- **Advanced Strategies**: Market making, statistical arbitrage, market microstructure analysis.
-- **Reinforcement Learning**: RL algorithms (DQN, PPO, A3C) for execution optimization and market making.
-- **High-Fidelity Backtesting**: Accurate market simulation with level 2 (order book) data.
-- **Microstructure Analysis**: Market impact modeling, effective spread, flow toxicity.
-- **Parameter Optimization**: Genetic and Bayesian algorithms for strategy optimization.
-- **Risk Analysis**: Real-time VaR, Expected Shortfall, stress testing.
-- **Advanced Visualization**: Interactive dashboards for strategy monitoring and performance analysis.
-
-## 🛠️ Technologies Used
-
-### Programming Languages
-- **C++**: Low-latency components, market data processing, order execution.
-- **Python**: ML models, backtesting, data analysis, visualization.
-- **Julia**: High-performance numerical computing, optimization, simulation.
-
-### Frameworks and Libraries
-- **C++**:
-  - Boost, ZeroMQ, FlatBuffers for low-latency communication
-  - DPDK for optimized network processing
-  - Eigen for high-performance linear algebra
-  - OpenMP/TBB for parallelization
-
-- **Python**:
-  - NumPy, Pandas, SciPy for data analysis
-  - PyTorch, TensorFlow for ML/RL models
-  - Numba for Python code acceleration
-  - Plotly, Dash for interactive visualization
-
-- **Julia**:
-  - JuMP for mathematical optimization
-  - DifferentialEquations.jl for stochastic modeling
-  - QuantLib.jl for financial modeling
-  - Flux.jl for deep learning
-
-### Infrastructure
-- **Specialized Hardware**: Support for FPGA, GPU, and low-latency CPU
-- **Data Storage**: InfluxDB for time series, ClickHouse for analytics
-- **Communication**: FIX/FAST protocols, multicast UDP, low-latency IPC
-- **Monitoring**: Prometheus, Grafana for real-time metrics
-
-## 🏗️ Architecture
-
-The system follows a modular, loosely coupled architecture, with specialized components for different aspects of high-frequency trading:
-
-1. **Market Data Handler (C++)**: Processes real-time market data feeds with ultra-low latency.
-2. **Strategy Engine (C++/Python)**: Implements trading logic and generates signals.
-3. **Execution Engine (C++)**: Manages order execution with latency optimization.
-4. **Risk Manager (C++/Python)**: Monitors and controls risk exposure in real-time.
-5. **Analytics Engine (Python/Julia)**: Performs quantitative analysis and backtesting.
-6. **Optimization Engine (Julia)**: Optimizes strategy parameters.
-7. **Visualization Layer (Python)**: Dashboards for monitoring and analysis.
-
-```mermaid
-graph TD
-    A[Market Data Feeds] --> B(Market Data Handler C++)
-    B --> C{Order Book Manager}
-    C --> D[Strategy Engine]
-    D --> E{Signal Generator}
-    E --> F[Execution Engine]
-    F --> G{Order Router}
-    G --> H[Exchange Connectivity]
-    
-    C --> I[Risk Manager]
-    I --> F
-    
-    C --> J[Analytics Engine]
-    J --> K[Backtesting]
-    J --> L[Performance Analysis]
-    
-    C --> M[Optimization Engine]
-    M --> D
-    
-    subgraph Monitoring
-        N[Visualization Layer]
-        O[Metrics Collection]
-    end
-    
-    B --> O
-    D --> O
-    F --> O
-    I --> O
-    O --> N
-```
-
-## 📁 Project Structure
-
-```
-high-frequency-trading-analytics/
-├── src/
-│   ├── models/                # ML/RL models for prediction and execution
-│   ├── strategies/            # Trading strategy implementations
-│   ├── data/                  # Data processing and management
-│   ├── backtesting/           # Backtesting framework
-│   ├── optimization/          # Parameter optimization algorithms
-│   ├── execution/             # Order execution components
-│   └── visualization/         # Dashboards and visualizations
-├── cpp/                       # C++ code for low-latency components
-│   ├── market_data/           # Market data processing
-│   ├── order_book/            # Order book implementation
-│   ├── execution/             # Execution engine
-│   └── risk/                  # Risk management
-├── julia/                     # Julia code for high-performance computing
-│   ├── optimization/          # Parameter optimization
-│   ├── simulation/            # Market simulation
-│   └── models/                # Quantitative models
-├── scripts/                   # Utility scripts
-├── config/                    # Configuration files
-├── data/                      # Example data and datasets
-├── docs/                      # Additional documentation
-├── tests/                     # Automated tests
-├── requirements.txt           # Python dependencies
-└── README.md                  # This file
-```
-
-## 🚀 Installation
-
-### Prerequisites
-- C++17 or higher with compatible compiler (GCC 9+, Clang 10+)
-- Python 3.8+
-- Julia 1.6+
-- CMake 3.15+
-- Boost 1.70+
-- ZeroMQ 4.3+
-- CUDA 11+ (optional, for GPU acceleration)
-
-### Installation
-
-```bash
-# Clone the repository
-git clone https://github.com/galafis/high-frequency-trading-analytics.git
-cd high-frequency-trading-analytics
-
-# Compile C++ components
-mkdir -p cpp/build && cd cpp/build
-cmake ..
-make -j$(nproc)
-cd ../..
-
-# Install Python dependencies
-python -m venv venv
-source venv/bin/activate  # Linux/macOS
-# venv\Scripts\activate  # Windows
-pip install -r requirements.txt
-
-# Install Julia packages
-julia -e 'using Pkg; Pkg.activate("."); Pkg.instantiate()'
-```
-
-## 📊 Usage
-
-### Running the Complete System
-
-```bash
-# Start the complete system (simulation mode)
-python scripts/run_system.py --mode simulation --config config/simulation.yaml
-
-# Start the complete system (production mode)
-python scripts/run_system.py --mode production --config config/production.yaml
-```
-
-### Running Individual Components
-
-```bash
-# Run only the market data processor
-./cpp/build/bin/market_data_processor --config config/market_data.yaml
-
-# Run a specific strategy
-python src/strategies/run_strategy.py --strategy stat_arb --config config/strategies/stat_arb.yaml
-
-# Run backtesting
-python src/backtesting/run_backtest.py --strategy market_making --data data/historical/btcusdt_202506.parquet --config config/backtest.yaml
-
-# Run parameter optimization
-julia julia/optimization/optimize_strategy.jl --strategy market_making --config config/optimization.yaml
-```
-
-## 🧠 Implemented Strategies
-
-### Market Making
-- **Avellaneda-Stoikov**: Implementation of the classic market making model with dynamic spread adjustment.
-- **RL-based Market Making**: Reinforcement learning-based market making (DQN, PPO).
-- **Adaptive Market Making**: Parameter adjustment based on volatility and order flow.
-
-### Statistical Arbitrage
-- **Pairs Trading**: Cointegration-based pairs trading with mean reversion.
-- **Statistical Factor Models**: Factor models for multi-asset statistical arbitrage.
-- **Kalman Filter**: Dynamic parameter estimation for pairs trading.
-
-### Market Microstructure
-- **Order Flow Imbalance**: Price movement prediction based on order flow imbalance.
-- **Liquidity Provision**: Liquidity provision strategies with inventory management.
-- **Latency Arbitrage**: Exploitation of latency differences between venues.
-
-## 📈 Backtesting
-
-The backtesting framework supports:
-
-- **Order Book Simulation**: Complete order book reconstruction for high-fidelity backtesting.
-- **Latency Modeling**: Realistic simulation of network and execution latencies.
-- **Market Impact**: Modeling of order impact on the market.
-- **Transaction Costs**: Inclusion of spreads, fees, and slippage.
-- **Performance Analysis**: Detailed performance metrics (Sharpe, Sortino, drawdown, etc.).
-
-```python
-# Example code for backtesting
-from src.backtesting import Backtest
-from src.strategies import MarketMakingStrategy
-from src.data import OrderBookDataLoader
-
-# Load historical order book data
-data_loader = OrderBookDataLoader("data/historical/btcusdt_level2_202506.parquet")
-order_book_data = data_loader.load()
-
-# Configure strategy
-strategy = MarketMakingStrategy(
-    spread_factor=0.002,
-    inventory_limit=10,
-    risk_aversion=0.9
-)
-
-# Run backtest
-backtest = Backtest(
-    strategy=strategy,
-    data=order_book_data,
-    commission=0.0002,
-    slippage=0.0001
-)
-
-# Analyze results
-results = backtest.run()
-results.plot_equity_curve()
-results.print_metrics()
-```
-
-## 🔧 Optimization
-
-The system includes advanced tools for parameter optimization:
-
-- **Genetic Algorithms**: Evolutionary optimization of strategy parameters.
-- **Bayesian Optimization**: Bayesian optimization for efficient parameter space exploration.
-- **Grid/Random Search**: Traditional parameter search methods.
-- **Walk-Forward Analysis**: Parameter validation across successive time windows.
-
-```julia
-# Example Julia code for optimization
-using JuMP, Ipopt, DataFrames
-
-# Define objective function (Sharpe ratio)
-function objective(params)
-    # Run backtest with parameters
-    results = run_backtest(
-        strategy="market_making",
-        spread_factor=params[1],
-        inventory_limit=params[2],
-        risk_aversion=params[3]
-    )
-    return -results.sharpe_ratio  # Negative because we want to maximize
-end
-
-# Set up optimization
-model = Model(Ipopt.Optimizer)
-@variable(model, 0.0001 <= spread_factor <= 0.01)
-@variable(model, 1 <= inventory_limit <= 50)
-@variable(model, 0.1 <= risk_aversion <= 2.0)
-
-# Define objective function
-register(model, :objective, 3, objective, autodiff=true)
-@NLobjective(model, Min, objective(spread_factor, inventory_limit, risk_aversion))
-
-# Run optimization
-optimize!(model)
-
-# Get optimal parameters
-optimal_params = [
-    value(spread_factor),
-    value(inventory_limit),
-    value(risk_aversion)
-]
-println("Optimal parameters: ", optimal_params)
-```
-
-## 📊 Performance Analysis
-
-The system provides detailed performance analysis:
-
-- **Trading Metrics**: Sharpe, Sortino, Calmar, drawdown, win rate, profit factor.
-- **Execution Analysis**: VWAP, implementation shortfall, market impact.
-- **Risk Analysis**: VaR, Expected Shortfall, stress testing.
-- **Visualizations**: Equity curves, drawdown charts, trade distributions.
-
-```python
-# Example code for performance analysis
-from src.analytics import PerformanceAnalyzer
-
-# Load trading results
-results = PerformanceAnalyzer.load_results("results/market_making_202506.csv")
-
-# Calculate metrics
-metrics = results.calculate_metrics()
-print(f"Sharpe Ratio: {metrics.sharpe_ratio:.2f}")
-print(f"Max Drawdown: {metrics.max_drawdown:.2%}")
-print(f"Win Rate: {metrics.win_rate:.2%}")
-
-# Visualize results
-results.plot_equity_curve()
-results.plot_drawdown()
-results.plot_trade_distribution()
-results.plot_pnl_by_hour()
-```
-
-## 👥 Contributing
-
-Contributions are welcome! Please feel free to submit pull requests, create issues, or suggest improvements.
-
-1. Fork the project
-2. Create your feature branch (`git checkout -b feature/amazing-feature`)
-3. Commit your changes (`git commit -m 'Add some amazing feature'`)
-4. Push to the branch (`git push origin feature/amazing-feature`)
-5. Open a Pull Request
-
-## 📄 License
-
-This project is licensed under the MIT License - see the [LICENSE](LICENSE) file for details.
-
-## 📞 Contact
-
-Gabriel Demetrios Lafis - [GitHub](https://github.com/galafis)
-
-Project Link: [https://github.com/galafis/high-frequency-trading-analytics](https://github.com/galafis/high-frequency-trading-analytics)
+⭐ Se este projeto foi útil, considere deixar uma estrela!
 
