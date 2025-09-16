@@ -1,0 +1,210 @@
+name: Feature Engineering Pipeline Tests
+
+# Trigger the workflow on push, pull request, or manual dispatch
+on:
+  push:
+    branches: [ main, develop ]
+    paths:
+      - 'features.py'
+      - 'tests/test_features.py'
+      - 'requirements.txt'
+      - '.github/workflows/test_features.yml'
+  pull_request:
+    branches: [ main, develop ]
+    paths:
+      - 'features.py'
+      - 'tests/test_features.py'
+      - 'requirements.txt'
+      - '.github/workflows/test_features.yml'
+  workflow_dispatch:  # Allow manual triggering
+
+# Define environment variables
+env:
+  PYTHON_VERSION: '3.9'
+  COVERAGE_THRESHOLD: 80
+
+jobs:
+  test-features:
+    name: Test Feature Engineering Pipeline
+    runs-on: ubuntu-latest
+    
+    strategy:
+      matrix:
+        python-version: ['3.9', '3.10', '3.11']
+      fail-fast: false  # Continue testing other versions if one fails
+    
+    steps:
+    # Checkout the repository
+    - name: Checkout code
+      uses: actions/checkout@v4
+      with:
+        fetch-depth: 0  # Full git history for better coverage reports
+    
+    # Set up Python environment
+    - name: Set up Python ${{ matrix.python-version }}
+      uses: actions/setup-python@v4
+      with:
+        python-version: ${{ matrix.python-version }}
+        cache: 'pip'  # Cache pip dependencies
+    
+    # Upgrade pip and install build tools
+    - name: Upgrade pip and install build tools
+      run: |
+        python -m pip install --upgrade pip
+        pip install wheel setuptools
+    
+    # Install project dependencies
+    - name: Install dependencies
+      run: |
+        if [ -f requirements.txt ]; then
+          pip install -r requirements.txt
+        fi
+        # Install testing and coverage dependencies
+        pip install pytest pytest-cov pytest-html pytest-xdist
+        # Install additional dependencies for robust testing
+        pip install coverage pytest-mock pytest-benchmark
+    
+    # Run linting and code quality checks
+    - name: Lint with flake8
+      run: |
+        pip install flake8
+        # Stop the build if there are Python syntax errors or undefined names
+        flake8 features.py tests/test_features.py --count --select=E9,F63,F7,F82 --show-source --statistics
+        # Treat all other issues as warnings
+        flake8 features.py tests/test_features.py --count --exit-zero --max-complexity=10 --max-line-length=88 --statistics
+    
+    # Run the feature engineering tests with coverage
+    - name: Run pytest with coverage
+      run: |
+        # Run tests with coverage reporting
+        python -m pytest tests/test_features.py -v \
+          --cov=features \
+          --cov-report=html:htmlcov \
+          --cov-report=xml:coverage.xml \
+          --cov-report=term \
+          --cov-fail-under=${{ env.COVERAGE_THRESHOLD }} \
+          --html=pytest_report.html \
+          --self-contained-html \
+          --junit-xml=pytest_junit.xml
+    
+    # Upload coverage to codecov (optional)
+    - name: Upload coverage to Codecov
+      if: matrix.python-version == '3.9'  # Only upload once
+      uses: codecov/codecov-action@v3
+      with:
+        files: ./coverage.xml
+        flags: feature-engineering
+        name: feature-pipeline-coverage
+        fail_ci_if_error: false  # Don't fail if codecov is down
+    
+    # Upload test artifacts
+    - name: Upload test artifacts
+      if: always()  # Upload even if tests fail
+      uses: actions/upload-artifact@v3
+      with:
+        name: test-results-python-${{ matrix.python-version }}
+        path: |
+          htmlcov/
+          pytest_report.html
+          pytest_junit.xml
+          coverage.xml
+        retention-days: 30
+    
+    # Performance benchmark tests
+    - name: Run performance benchmarks
+      if: matrix.python-version == '3.9'  # Only run benchmarks on one version
+      run: |
+        # Run performance tests if they exist
+        if [ -f "tests/test_features_performance.py" ]; then
+          python -m pytest tests/test_features_performance.py -v --benchmark-only
+        else
+          echo "No performance tests found, skipping..."
+        fi
+  
+  # Additional job for testing with minimal dependencies
+  test-minimal-deps:
+    name: Test with minimal dependencies
+    runs-on: ubuntu-latest
+    
+    steps:
+    - name: Checkout code
+      uses: actions/checkout@v4
+    
+    - name: Set up Python 3.9
+      uses: actions/setup-python@v4
+      with:
+        python-version: '3.9'
+    
+    - name: Install minimal dependencies
+      run: |
+        pip install pandas numpy pytest tempfile
+        # Only install absolutely essential packages
+    
+    - name: Run basic feature tests
+      run: |
+        python -m pytest tests/test_features.py::TestFeatureEngineering::test_basic_features_creation -v
+        python -m pytest tests/test_features.py::TestFeatureEngineering::test_minimal_data_requirements -v
+  
+  # Job to validate the features.py module can be imported
+  validate-imports:
+    name: Validate module imports
+    runs-on: ubuntu-latest
+    
+    steps:
+    - name: Checkout code
+      uses: actions/checkout@v4
+    
+    - name: Set up Python
+      uses: actions/setup-python@v4
+      with:
+        python-version: '3.9'
+    
+    - name: Install dependencies
+      run: |
+        pip install pandas numpy
+    
+    - name: Validate imports
+      run: |
+        python -c "from features import feature_engineering, export_features; print('✓ All imports successful')"
+        python -c "import pandas as pd; import numpy as np; print('✓ Core dependencies available')"
+  
+  # Summary job that depends on all test jobs
+  test-summary:
+    name: Test Summary
+    runs-on: ubuntu-latest
+    needs: [test-features, test-minimal-deps, validate-imports]
+    if: always()  # Run even if some tests fail
+    
+    steps:
+    - name: Test Results Summary
+      run: |
+        echo "## Test Results Summary" >> $GITHUB_STEP_SUMMARY
+        echo "" >> $GITHUB_STEP_SUMMARY
+        
+        if [ "${{ needs.test-features.result }}" == "success" ]; then
+          echo "✅ Feature engineering tests: **PASSED**" >> $GITHUB_STEP_SUMMARY
+        else
+          echo "❌ Feature engineering tests: **FAILED**" >> $GITHUB_STEP_SUMMARY
+        fi
+        
+        if [ "${{ needs.test-minimal-deps.result }}" == "success" ]; then
+          echo "✅ Minimal dependencies tests: **PASSED**" >> $GITHUB_STEP_SUMMARY
+        else
+          echo "❌ Minimal dependencies tests: **FAILED**" >> $GITHUB_STEP_SUMMARY
+        fi
+        
+        if [ "${{ needs.validate-imports.result }}" == "success" ]; then
+          echo "✅ Import validation: **PASSED**" >> $GITHUB_STEP_SUMMARY
+        else
+          echo "❌ Import validation: **FAILED**" >> $GITHUB_STEP_SUMMARY
+        fi
+        
+        echo "" >> $GITHUB_STEP_SUMMARY
+        echo "📊 **Coverage Threshold:** ${{ env.COVERAGE_THRESHOLD }}%" >> $GITHUB_STEP_SUMMARY
+        echo "🔗 **Workflow URL:** ${{ github.server_url }}/${{ github.repository }}/actions/runs/${{ github.run_id }}" >> $GITHUB_STEP_SUMMARY
+    
+    - name: Check overall success
+      if: needs.test-features.result != 'success'
+      run: |
+        echo "One or more critical tests failed"
+        exit 1
