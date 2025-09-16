@@ -41,7 +41,7 @@ jobs:
     
     # Set up Python environment
     - name: Set up Python 3.9
-      uses: actions/setup-python@v4
+      uses: actions/setup-python@v5
       with:
         python-version: '3.9'
         cache: 'pip'
@@ -113,7 +113,7 @@ jobs:
     
     # Set up Python environment
     - name: Set up Python ${{ matrix.python-version }}
-      uses: actions/setup-python@v4
+      uses: actions/setup-python@v5
       with:
         python-version: ${{ matrix.python-version }}
         cache: 'pip'  # Cache pip dependencies
@@ -182,17 +182,18 @@ jobs:
     # Upload coverage to codecov (optional)
     - name: Upload coverage to Codecov
       if: matrix.python-version == '3.9'  # Only upload once
-      uses: codecov/codecov-action@v3
+      uses: codecov/codecov-action@v4
       with:
         files: ./coverage.xml
         flags: feature-engineering
         name: feature-pipeline-coverage
         fail_ci_if_error: false  # Don't fail if codecov is down
+        token: ${{ secrets.CODECOV_TOKEN }}  # Required for v4
     
-    # Upload test artifacts
+    # Upload test artifacts - UPDATED to v4
     - name: Upload test artifacts
       if: always()  # Upload even if tests fail
-      uses: actions/upload-artifact@v3
+      uses: actions/upload-artifact@v4
       with:
         name: test-results-python-${{ matrix.python-version }}
         path: |
@@ -224,13 +225,13 @@ jobs:
       uses: actions/checkout@v4
     
     - name: Set up Python 3.9
-      uses: actions/setup-python@v4
+      uses: actions/setup-python@v5
       with:
         python-version: '3.9'
     
     - name: Install minimal dependencies
       run: |
-        pip install pandas numpy pytest tempfile
+        pip install pandas numpy pytest
         # Only install absolutely essential packages
     
     - name: Create test data
@@ -263,7 +264,7 @@ jobs:
       uses: actions/checkout@v4
     
     - name: Set up Python
-      uses: actions/setup-python@v4
+      uses: actions/setup-python@v5
       with:
         python-version: '3.9'
     
