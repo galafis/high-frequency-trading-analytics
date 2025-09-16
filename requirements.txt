@@ -1,68 +1,82 @@
 # High-Frequency Trading Analytics Dependencies
+# =========================================
+# Versões testadas e compatíveis para CI/CD
 
 # Core Data Science and Machine Learning
-numpy>=1.24.0
-pandas>=2.0.0
-scipy>=1.10.0
-scikit-learn>=1.3.0
+numpy>=1.24.0,<2.1.0
+pandas>=2.0.0,<2.4.0
+scipy>=1.10.0,<1.14.0
+scikit-learn>=1.3.0,<1.6.0
 
 # Deep Learning and Reinforcement Learning
-torch>=2.0.0
-torchvision>=0.15.0
-tensorflow>=2.13.0
-stable-baselines3>=2.0.0
-gym>=0.26.0
+# Versões estáveis compatíveis
+torch>=2.0.0,<2.6.0
+torchvision>=0.15.0,<0.19.0
+tensorflow>=2.13.0,<2.17.0
+stable-baselines3>=2.0.0,<2.5.0
+# Usando gymnasium ao invés de gym (deprecated)
+gymnasium>=0.29.1,<1.0.0
 
-# Financial Data and Analysis
-quantlib>=1.31
-yfinance>=0.2.18
-alpaca-trade-api>=3.0.0
-ccxt>=4.0.0  # Cryptocurrency exchanges
+# Financial Data and Analysis  
+quantlib>=1.31,<1.35
+yfinance>=0.2.18,<0.2.55  # versão compatível
+alpaca-trade-api>=3.0.0,<3.1.0  # versão específica para compatibilidade
+ccxt>=4.0.0,<4.4.0
 
 # High-Performance Computing
-numba>=0.57.0
-cython>=3.0.0
-joblib>=1.3.0
+numba>=0.57.0,<0.59.0
+cython>=3.0.0,<3.1.0
+joblib>=1.3.0,<1.5.0
 
 # Data Storage and Caching
-redis>=4.6.0
-influxdb-client>=1.36.0
-pyarrow>=12.0.0
+redis>=4.6.0,<5.1.0
+influxdb-client>=1.36.0,<1.45.0
+pyarrow>=12.0.0,<16.0.0
 
 # Visualization and Analysis
-matplotlib>=3.7.0
-seaborn>=0.12.0
-plotly>=5.15.0
-jupyter>=1.0.0
-jupyterlab>=4.0.0
+matplotlib>=3.7.0,<3.9.0
+seaborn>=0.12.0,<0.14.0
+plotly>=5.15.0,<5.25.0
+jupyter>=1.0.0,<2.0.0
+jupyterlab>=4.0.0,<4.3.0
 
 # Web APIs and Data Fetching
-requests>=2.31.0
-websockets>=11.0.0
-aiohttp>=3.8.0
+requests>=2.31.0,<2.33.0
+# IMPORTANTE: websockets<11 é necessário para compatibilidade com alpaca-trade-api
+websockets>=9.0.0,<11.0.0  # Versão compatível com alpaca-trade-api
+aiohttp>=3.8.0,<3.10.0
 
 # Development and Testing
-pytest>=7.4.0
-pytest-cov>=4.1.0
-black>=23.7.0
-flake8>=6.0.0
-mypy>=1.5.0
+pytest>=7.4.0,<8.0.0
+pytest-cov>=4.1.0,<5.1.0
+pytest-html>=4.0.0,<4.2.0
+pytest-xdist>=3.0.0,<3.6.0
+pytest-mock>=3.10.0,<3.13.0
+pytest-benchmark>=4.0.0,<4.1.0
+black>=23.7.0,<24.0.0
+flake8>=6.0.0,<7.1.0
+mypy>=1.5.0,<1.8.0
+coverage>=7.0.0,<7.5.0
 
 # Configuration and Utilities
-pyyaml>=6.0.1
-click>=8.1.0
-python-dotenv>=1.0.0
-tqdm>=4.65.0
+PyYAML>=6.0.1,<6.1.0
+click>=8.1.0,<8.2.0
+python-dotenv>=1.0.0,<1.1.0
+tqdm>=4.65.0,<4.67.0
 
-# Statistical Analysis
-statsmodels>=0.14.0
-arch>=6.2.0  # ARCH/GARCH models
+# Statistical Analysis and Econometrics
+statsmodels>=0.14.0,<0.15.0
+arch>=6.2.0,<6.4.0
 
 # Time Series Analysis
-sktime>=0.21.0
+sktime>=0.21.0,<0.33.0
 
 # Portfolio Optimization
-cvxpy>=1.3.0
+cvxpy>=1.3.0,<1.6.0
 
 # Logging and Monitoring
-loguru>=0.7.0
+loguru>=0.7.0,<0.8.0
+
+# Additional utilities for testing environment
+pathlib2>=2.3.0;python_version<'3.4'
+typing-extensions>=4.0.0,<5.0.0
