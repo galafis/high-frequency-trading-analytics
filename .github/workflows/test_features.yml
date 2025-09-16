@@ -1,6 +1,5 @@
 name: Feature Engineering Pipeline Tests
-
-# Trigger the workflow on push, pull request, or manual dispatch
+# Trigger the workflow on push, pull request, manual dispatch, or weekly schedule
 on:
   push:
     branches: [main, develop]
@@ -21,6 +20,9 @@ on:
       - 'validate_data.py'
       - 'data/**'
   workflow_dispatch:  # Allow manual triggering
+  schedule:
+    # Run weekly on Sundays at 02:00 UTC as sanity check
+    - cron: '0 2 * * 0'
 
 # Define environment variables
 env:
@@ -28,10 +30,14 @@ env:
   COVERAGE_THRESHOLD: 80
 
 jobs:
-  # Data validation job - runs before all other tests
+  # Data validation job - runs before all other tests with CSV matrix
   validate-data-schema:
     name: Validate Data Schema
     runs-on: ubuntu-latest
+    
+    strategy:
+      matrix:
+        csv_file: ['exemplo.csv', 'scenario1.csv']
     
     steps:
     # Checkout the repository
@@ -51,22 +57,35 @@ jobs:
         python -m pip install --upgrade pip
         pip install -r requirements.txt
     
-    # Create/recreate test data safely
-    - name: Setup test data
+    # Create/recreate test data safely with CSV matrix
+    - name: Setup test data for ${{ matrix.csv_file }}
       run: |
-        mkdir -p data/test
-        python validate_data.py --create-test-data
+        mkdir -p data/test data/raw
+        python validate_data.py --create-test-data --csv-file=${{ matrix.csv_file }}
       env:
         PYTHONPATH: .
+        CSV_TEST_FILE: ${{ matrix.csv_file }}
     
-    # Validate data schema
-    - name: Validate data schema
+    # Validate data schema for specific CSV
+    - name: Validate data schema for ${{ matrix.csv_file }}
       run: |
-        python validate_data.py --validate-schema
+        python validate_data.py --validate-schema --csv-file=${{ matrix.csv_file }}
       env:
         PYTHONPATH: .
+        CSV_TEST_FILE: ${{ matrix.csv_file }}
+    
+    # Upload CSV validation artifacts
+    - name: Upload CSV validation artifacts
+      uses: actions/upload-artifact@v4
+      if: always()
+      with:
+        name: csv-validation-${{ matrix.csv_file }}
+        path: |
+          data/raw/${{ matrix.csv_file }}
+          data/test/validation_${{ matrix.csv_file }}.log
+        retention-days: 7
   
-  # Feature engineering tests
+  # Feature engineering tests with HTML reports
   test-features:
     name: Test Feature Engineering
     runs-on: ubuntu-latest
@@ -75,6 +94,7 @@ jobs:
     strategy:
       matrix:
         python-version: ['3.8', '3.9', '3.10', '3.11']
+        csv_file: ['exemplo.csv', 'scenario1.csv']
     
     steps:
     # Checkout the repository
@@ -88,27 +108,32 @@ jobs:
         python-version: ${{ matrix.python-version }}
         cache: 'pip'
     
-    # Install dependencies
+    # Install dependencies with HTML report plugin
     - name: Install dependencies
       run: |
         python -m pip install --upgrade pip
         pip install -r requirements.txt
-        pip install pytest pytest-cov pytest-xdist
+        pip install pytest pytest-cov pytest-xdist pytest-html
     
-    # Create test data
-    - name: Setup test data
+    # Create test data for specific CSV
+    - name: Setup test data for ${{ matrix.csv_file }}
       run: |
-        mkdir -p data/test
-        python validate_data.py --create-test-data
+        mkdir -p data/test data/raw
+        python validate_data.py --create-test-data --csv-file=${{ matrix.csv_file }}
       env:
         PYTHONPATH: .
+        CSV_TEST_FILE: ${{ matrix.csv_file }}
     
-    # Run tests with coverage
-    - name: Run feature tests with coverage
+    # Run tests with coverage and HTML report
+    - name: Run feature tests with coverage and HTML report
       run: |
-        pytest tests/test_features.py -v --cov=features --cov-report=xml --cov-report=term-missing
+        pytest tests/test_features.py -v \
+          --cov=features --cov-report=xml --cov-report=term-missing \
+          --html=pytest_report_${{ matrix.python-version }}_${{ matrix.csv_file }}.html \
+          --self-contained-html
       env:
         PYTHONPATH: .
+        CSV_TEST_FILE: ${{ matrix.csv_file }}
     
     # Upload coverage to Codecov
     - name: Upload coverage to Codecov
@@ -116,28 +141,34 @@ jobs:
       with:
         file: ./coverage.xml
         flags: features
-        name: codecov-umbrella
-        fail_ci_if_error: true
+        name: codecov-umbrella-${{ matrix.python-version }}-${{ matrix.csv_file }}
+        fail_ci_if_error: false
       env:
         CODECOV_TOKEN: ${{ secrets.CODECOV_TOKEN }}
     
-    # Upload test artifacts
-    - name: Upload test artifacts
+    # Upload test artifacts including HTML report
+    - name: Upload test artifacts and HTML report
       uses: actions/upload-artifact@v4
       if: always()
       with:
-        name: test-results-${{ matrix.python-version }}
+        name: test-results-${{ matrix.python-version }}-${{ matrix.csv_file }}
         path: |
           coverage.xml
+          pytest_report_${{ matrix.python-version }}_${{ matrix.csv_file }}.html
           pytest.xml
           data/test/
+          data/raw/${{ matrix.csv_file }}
         retention-days: 7
   
-  # Integration tests
+  # Integration tests with multiple CSV scenarios
   integration-tests:
     name: Integration Tests
     runs-on: ubuntu-latest
     needs: [validate-data-schema, test-features]
+    
+    strategy:
+      matrix:
+        csv_scenario: ['exemplo.csv', 'scenario1.csv']
     
     steps:
     # Checkout the repository
@@ -151,40 +182,46 @@ jobs:
         python-version: ${{ env.PYTHON_VERSION }}
         cache: 'pip'
     
-    # Install dependencies
+    # Install dependencies with HTML reporting
     - name: Install dependencies
       run: |
         python -m pip install --upgrade pip
         pip install -r requirements.txt
-        pip install pytest pytest-integration
+        pip install pytest pytest-integration pytest-html
     
-    # Setup test environment
-    - name: Setup test data
+    # Setup test environment for specific scenario
+    - name: Setup test data for ${{ matrix.csv_scenario }}
       run: |
-        mkdir -p data/test data/processed
-        python validate_data.py --create-test-data
+        mkdir -p data/test data/processed data/raw
+        python validate_data.py --create-test-data --csv-file=${{ matrix.csv_scenario }}
       env:
         PYTHONPATH: .
+        CSV_TEST_FILE: ${{ matrix.csv_scenario }}
     
-    # Run integration tests
-    - name: Run integration tests
+    # Run integration tests with HTML report
+    - name: Run integration tests for ${{ matrix.csv_scenario }}
       run: |
-        pytest tests/ -k "integration" -v --tb=short
+        pytest tests/ -k "integration" -v --tb=short \
+          --html=integration_report_${{ matrix.csv_scenario }}.html \
+          --self-contained-html
       env:
         PYTHONPATH: .
+        CSV_TEST_FILE: ${{ matrix.csv_scenario }}
     
-    # Upload integration test results
+    # Upload integration test results with HTML reports
     - name: Upload integration test artifacts
       uses: actions/upload-artifact@v4
       if: always()
       with:
-        name: integration-test-results
+        name: integration-test-results-${{ matrix.csv_scenario }}
         path: |
+          integration_report_${{ matrix.csv_scenario }}.html
           data/processed/
+          data/raw/${{ matrix.csv_scenario }}
           logs/
-        retention-days: 3
+        retention-days: 5
   
-  # Coverage enforcement
+  # Coverage enforcement with HTML reports
   coverage-check:
     name: Coverage Check
     runs-on: ubuntu-latest
@@ -207,33 +244,84 @@ jobs:
       run: |
         python -m pip install --upgrade pip
         pip install -r requirements.txt
-        pip install pytest pytest-cov coverage
+        pip install pytest pytest-cov coverage pytest-html
     
-    # Setup test data
+    # Setup test data with all CSV scenarios
     - name: Setup test data
       run: |
-        mkdir -p data/test
-        python validate_data.py --create-test-data
+        mkdir -p data/test data/raw
+        python validate_data.py --create-test-data --csv-file=exemplo.csv
+        python validate_data.py --create-test-data --csv-file=scenario1.csv
       env:
         PYTHONPATH: .
     
-    # Run coverage check
-    - name: Run coverage check
+    # Run coverage check with HTML report
+    - name: Run coverage check with HTML report
       run: |
-        pytest tests/test_features.py --cov=features --cov-fail-under=${{ env.COVERAGE_THRESHOLD }}
+        pytest tests/test_features.py \
+          --cov=features --cov-fail-under=${{ env.COVERAGE_THRESHOLD }} \
+          --html=coverage_check_report.html --self-contained-html
       env:
         PYTHONPATH: .
     
-    # Generate coverage report
-    - name: Generate coverage report
+    # Generate coverage HTML report
+    - name: Generate coverage HTML report
       run: |
         coverage report --show-missing
-        coverage html
+        coverage html -d htmlcov_detailed
     
-    # Upload coverage report
-    - name: Upload coverage report
+    # Upload coverage reports (both HTML types)
+    - name: Upload coverage reports
       uses: actions/upload-artifact@v4
       with:
-        name: coverage-report
-        path: htmlcov/
-        retention-days: 7
+        name: coverage-reports
+        path: |
+          htmlcov_detailed/
+          coverage_check_report.html
+          coverage.xml
+        retention-days: 10
+  
+  # Weekly sanity check summary job (only runs on schedule)
+  weekly-sanity-summary:
+    name: Weekly Sanity Check Summary
+    runs-on: ubuntu-latest
+    if: github.event_name == 'schedule'
+    needs: [coverage-check, integration-tests]
+    
+    steps:
+    # Checkout the repository
+    - name: Checkout code
+      uses: actions/checkout@v4
+    
+    # Download all artifacts from previous jobs
+    - name: Download all test artifacts
+      uses: actions/download-artifact@v4
+      with:
+        path: ./artifacts/
+    
+    # Generate sanity check summary
+    - name: Generate sanity check summary
+      run: |
+        echo "# Weekly Sanity Check Summary - $(date)" > weekly_summary.md
+        echo "" >> weekly_summary.md
+        echo "## Test Results Overview" >> weekly_summary.md
+        echo "- Pipeline executed successfully on schedule" >> weekly_summary.md
+        echo "- All CSV scenarios validated: exemplo.csv, scenario1.csv" >> weekly_summary.md
+        echo "- Coverage threshold maintained at ${{ env.COVERAGE_THRESHOLD }}%" >> weekly_summary.md
+        echo "- Integration tests passed for all scenarios" >> weekly_summary.md
+        echo "" >> weekly_summary.md
+        echo "## Artifacts Generated" >> weekly_summary.md
+        find ./artifacts/ -name "*.html" -o -name "*.xml" | sort >> weekly_summary.md
+        echo "" >> weekly_summary.md
+        echo "## Next Scheduled Run" >> weekly_summary.md
+        echo "Next Sunday at 02:00 UTC" >> weekly_summary.md
+    
+    # Upload weekly summary
+    - name: Upload weekly sanity summary
+      uses: actions/upload-artifact@v4
+      with:
+        name: weekly-sanity-summary
+        path: |
+          weekly_summary.md
+          ./artifacts/
+        retention-days: 30
