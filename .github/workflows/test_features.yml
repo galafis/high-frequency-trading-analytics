@@ -1,5 +1,4 @@
 name: Feature Engineering Pipeline Tests
-
 # Trigger the workflow on push, pull request, or manual dispatch
 on:
   push:
@@ -9,6 +8,8 @@ on:
       - 'tests/test_features.py'
       - 'requirements.txt'
       - '.github/workflows/test_features.yml'
+      - 'validate_data.py'
+      - 'data/**'
   pull_request:
     branches: [ main, develop ]
     paths:
@@ -16,6 +17,8 @@ on:
       - 'tests/test_features.py'
       - 'requirements.txt'
       - '.github/workflows/test_features.yml'
+      - 'validate_data.py'
+      - 'data/**'
   workflow_dispatch:  # Allow manual triggering
 
 # Define environment variables
@@ -24,9 +27,77 @@ env:
   COVERAGE_THRESHOLD: 80
 
 jobs:
+  # Data validation job - runs before all other tests
+  validate-data-schema:
+    name: Validate Data Schema
+    runs-on: ubuntu-latest
+    
+    steps:
+    # Checkout the repository
+    - name: Checkout code
+      uses: actions/checkout@v4
+      with:
+        fetch-depth: 0
+    
+    # Set up Python environment
+    - name: Set up Python 3.9
+      uses: actions/setup-python@v4
+      with:
+        python-version: '3.9'
+        cache: 'pip'
+    
+    # Install dependencies for data validation
+    - name: Install validation dependencies
+      run: |
+        python -m pip install --upgrade pip
+        pip install pandas pathlib
+    
+    # Create test data if it doesn't exist
+    - name: Create test data directory and sample file
+      run: |
+        mkdir -p data/raw
+        # Create a sample CSV file with correct schema for testing
+        cat > data/raw/exemplo.csv << 'EOF'
+        timestamp,price
+        2023-01-01 09:00:00,100.50
+        2023-01-01 09:00:01,100.52
+        2023-01-01 09:00:02,100.48
+        2023-01-01 09:00:03,100.55
+        2023-01-01 09:00:04,100.53
+        EOF
+    
+    # Run data schema validation
+    - name: Run data schema validation
+      run: |
+        echo "🔍 Validating data schema before running tests..."
+        python validate_data.py data/raw/exemplo.csv
+        echo "✅ Data schema validation passed!"
+    
+    # Test with intentionally invalid data to ensure validation works
+    - name: Test schema validation with invalid data (negative test)
+      run: |
+        echo "🧪 Testing schema validation with invalid data..."
+        # Create invalid data file (missing required column)
+        cat > data/raw/invalid_exemplo.csv << 'EOF'
+        datetime,value
+        2023-01-01 09:00:00,100.50
+        EOF
+        
+        # This should fail - if it doesn't, the validation isn't working properly
+        if python validate_data.py data/raw/invalid_exemplo.csv 2>/dev/null; then
+          echo "❌ ERROR: Validation should have failed for invalid data!"
+          exit 1
+        else
+          echo "✅ Schema validation correctly rejected invalid data"
+        fi
+        
+        # Clean up invalid test file
+        rm data/raw/invalid_exemplo.csv
+
   test-features:
     name: Test Feature Engineering Pipeline
     runs-on: ubuntu-latest
+    needs: validate-data-schema  # Only run if data validation passes
     
     strategy:
       matrix:
@@ -64,14 +135,35 @@ jobs:
         # Install additional dependencies for robust testing
         pip install coverage pytest-mock pytest-benchmark
     
+    # Create test data (replicating from validation job)
+    - name: Ensure test data exists
+      run: |
+        mkdir -p data/raw
+        if [ ! -f data/raw/exemplo.csv ]; then
+          cat > data/raw/exemplo.csv << 'EOF'
+        timestamp,price
+        2023-01-01 09:00:00,100.50
+        2023-01-01 09:00:01,100.52
+        2023-01-01 09:00:02,100.48
+        2023-01-01 09:00:03,100.55
+        2023-01-01 09:00:04,100.53
+        EOF
+        fi
+    
+    # Re-run data validation to ensure consistency
+    - name: Validate data schema before tests
+      run: |
+        echo "🔍 Re-validating data schema before feature tests..."
+        python validate_data.py data/raw/exemplo.csv
+    
     # Run linting and code quality checks
     - name: Lint with flake8
       run: |
         pip install flake8
         # Stop the build if there are Python syntax errors or undefined names
-        flake8 features.py tests/test_features.py --count --select=E9,F63,F7,F82 --show-source --statistics
+        flake8 features.py tests/test_features.py validate_data.py --count --select=E9,F63,F7,F82 --show-source --statistics
         # Treat all other issues as warnings
-        flake8 features.py tests/test_features.py --count --exit-zero --max-complexity=10 --max-line-length=88 --statistics
+        flake8 features.py tests/test_features.py validate_data.py --count --exit-zero --max-complexity=10 --max-line-length=88 --statistics
     
     # Run the feature engineering tests with coverage
     - name: Run pytest with coverage
@@ -125,6 +217,7 @@ jobs:
   test-minimal-deps:
     name: Test with minimal dependencies
     runs-on: ubuntu-latest
+    needs: validate-data-schema  # Only run if data validation passes
     
     steps:
     - name: Checkout code
@@ -140,6 +233,20 @@ jobs:
         pip install pandas numpy pytest tempfile
         # Only install absolutely essential packages
     
+    - name: Create test data
+      run: |
+        mkdir -p data/raw
+        cat > data/raw/exemplo.csv << 'EOF'
+        timestamp,price
+        2023-01-01 09:00:00,100.50
+        2023-01-01 09:00:01,100.52
+        2023-01-01 09:00:02,100.48
+        EOF
+    
+    - name: Validate data before minimal tests
+      run: |
+        python validate_data.py data/raw/exemplo.csv
+    
     - name: Run basic feature tests
       run: |
         python -m pytest tests/test_features.py::TestFeatureEngineering::test_basic_features_creation -v
@@ -149,6 +256,7 @@ jobs:
   validate-imports:
     name: Validate module imports
     runs-on: ubuntu-latest
+    needs: validate-data-schema  # Only run if data validation passes
     
     steps:
     - name: Checkout code
@@ -167,12 +275,13 @@ jobs:
       run: |
         python -c "from features import feature_engineering, export_features; print('✓ All imports successful')"
         python -c "import pandas as pd; import numpy as np; print('✓ Core dependencies available')"
+        python -c "import validate_data; print('✓ Data validation module available')"
   
   # Summary job that depends on all test jobs
   test-summary:
     name: Test Summary
     runs-on: ubuntu-latest
-    needs: [test-features, test-minimal-deps, validate-imports]
+    needs: [validate-data-schema, test-features, test-minimal-deps, validate-imports]
     if: always()  # Run even if some tests fail
     
     steps:
@@ -180,6 +289,12 @@ jobs:
       run: |
         echo "## Test Results Summary" >> $GITHUB_STEP_SUMMARY
         echo "" >> $GITHUB_STEP_SUMMARY
+        
+        if [ "${{ needs.validate-data-schema.result }}" == "success" ]; then
+          echo "✅ Data schema validation: **PASSED**" >> $GITHUB_STEP_SUMMARY
+        else
+          echo "❌ Data schema validation: **FAILED**" >> $GITHUB_STEP_SUMMARY
+        fi
         
         if [ "${{ needs.test-features.result }}" == "success" ]; then
           echo "✅ Feature engineering tests: **PASSED**" >> $GITHUB_STEP_SUMMARY
@@ -201,10 +316,11 @@ jobs:
         
         echo "" >> $GITHUB_STEP_SUMMARY
         echo "📊 **Coverage Threshold:** ${{ env.COVERAGE_THRESHOLD }}%" >> $GITHUB_STEP_SUMMARY
+        echo "🔒 **Data Validation:** Schema validation enforced before all tests" >> $GITHUB_STEP_SUMMARY
         echo "🔗 **Workflow URL:** ${{ github.server_url }}/${{ github.repository }}/actions/runs/${{ github.run_id }}" >> $GITHUB_STEP_SUMMARY
     
     - name: Check overall success
-      if: needs.test-features.result != 'success'
+      if: needs.validate-data-schema.result != 'success' || needs.test-features.result != 'success'
       run: |
-        echo "One or more critical tests failed"
+        echo "Critical tests failed - data validation or feature tests failed"
         exit 1
