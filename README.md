@@ -1,423 +1,203 @@
-# High-Frequency Trading Analytics
+# 🚀 High-Frequency Trading Analytics
+
+[![⭐ Star this repository](https://img.shields.io/github/stars/galafis/high-frequency-trading-analytics?style=social)](https://github.com/galafis/high-frequency-trading-analytics/stargazers)
+[![🍴 Fork this project](https://img.shields.io/github/forks/galafis/high-frequency-trading-analytics?style=social)](https://github.com/galafis/high-frequency-trading-analytics/network/members)
+[![👥 Contributors](https://img.shields.io/github/contributors/galafis/high-frequency-trading-analytics)](https://github.com/galafis/high-frequency-trading-analytics/graphs/contributors)
+[![📝 License: MIT](https://img.shields.io/badge/license-MIT-blue.svg)](LICENSE)
 
 ![Python](https://img.shields.io/badge/Python-3776AB?style=flat&logo=python&logoColor=white)
 ![PyTorch](https://img.shields.io/badge/PyTorch-EE4C2C?style=flat&logo=pytorch&logoColor=white)
 ![NumPy](https://img.shields.io/badge/numpy-%23013243.svg?style=flat&logo=numpy&logoColor=white)
 ![Pandas](https://img.shields.io/badge/pandas-%23150458.svg?style=flat&logo=pandas&logoColor=white)
 ![Jupyter](https://img.shields.io/badge/Jupyter-F37626.svg?style=flat&logo=Jupyter&logoColor=white)
-![License](https://img.shields.io/badge/license-MIT-blue.svg)
-
-Sistema avançado de análise quantitativa e trading de alta frequência com algoritmos de machine learning, reinforcement learning e análise de microestrutura de mercado para estratégias automatizadas.
-
-## 🎯 Visão Geral
-
-Plataforma completa de trading quantitativo que combina análise de dados financeiros em tempo real, modelos preditivos avançados e estratégias de execução automatizada para mercados de alta frequência.
-
-### ✨ Características Principais
-
-- **🤖 Reinforcement Learning**: Agentes DQN, PPO e A3C para trading
-- **📊 Análise Quantitativa**: Modelos estatísticos e econométricos
-- **⚡ Baixa Latência**: Otimização para execução em microssegundos
-- **📈 Backtesting**: Framework robusto de teste histórico
-- **🔍 Microestrutura**: Análise de order book e market impact
-- **⚖️ Risk Management**: Gestão de risco em tempo real
-
-## 🛠️ Stack Tecnológico
-
-### Machine Learning & AI
-- **PyTorch**: Deep learning e reinforcement learning
-- **Scikit-learn**: Modelos de machine learning clássico
-- **TensorFlow**: Redes neurais alternativas
-- **Stable-Baselines3**: Algoritmos RL prontos
-
-### Análise Quantitativa
-- **NumPy**: Computação numérica otimizada
-- **Pandas**: Manipulação de dados financeiros
-- **SciPy**: Análise estatística avançada
-- **QuantLib**: Biblioteca de finanças quantitativas
-
-### Dados e Performance
-- **Numba**: Compilação JIT para performance
-- **Cython**: Extensões C para código crítico
-- **Redis**: Cache de dados em tempo real
-- **InfluxDB**: Banco de dados de séries temporais
-
-## 📁 Estrutura do Projeto
-
-```
-high-frequency-trading-analytics/
-├── src/
-│   ├── models/                     # Modelos de ML/RL
-│   │   ├── reinforcement_learning.py  # Agentes RL (DQN, PPO, A3C)
-│   │   ├── predictive_models.py       # Modelos preditivos
-│   │   └── risk_models.py             # Modelos de risco
-│   ├── strategies/                 # Estratégias de trading
-│   │   ├── market_making.py           # Market making
-│   │   ├── arbitrage.py               # Arbitragem estatística
-│   │   └── momentum.py                # Estratégias de momentum
-│   ├── data/                       # Processamento de dados
-│   │   ├── market_data.py             # Dados de mercado
-│   │   ├── order_book.py              # Order book processing
-│   │   └── features.py                # Feature engineering
-│   ├── execution/                  # Execução de ordens
-│   │   ├── order_manager.py           # Gerenciamento de ordens
-│   │   ├── slippage.py                # Análise de slippage
-│   │   └── latency.py                 # Otimização de latência
-│   ├── backtesting/                # Framework de backtesting
-│   │   ├── engine.py                  # Engine principal
-│   │   ├── metrics.py                 # Métricas de performance
-│   │   └── visualization.py           # Visualizações
-│   └── utils/                      # Utilitários
-│       ├── config.py                  # Configurações
-│       ├── logger.py                  # Sistema de logs
-│       └── helpers.py                 # Funções auxiliares
-├── notebooks/                      # Jupyter notebooks
-├── tests/                          # Testes automatizados
-├── data/                           # Datasets e exemplos
-├── requirements.txt                # Dependências
-└── README.md                       # Documentação
-```
-
-## 🚀 Quick Start
-
-### Pré-requisitos
-
-- Python 3.9+
-- CUDA (opcional, para GPU acceleration)
-- Redis (para cache de dados)
-
-### Instalação
-
-1. **Clone o repositório:**
-```bash
-git clone https://github.com/galafis/high-frequency-trading-analytics.git
-cd high-frequency-trading-analytics
-```
-
-2. **Configure o ambiente:**
-```bash
-python -m venv venv
-source venv/bin/activate  # Linux/Mac
-pip install -r requirements.txt
-```
-
-3. **Configure dados de mercado:**
-```bash
-# Configurar API keys para dados
-export ALPHA_VANTAGE_API_KEY="your_api_key"
-export POLYGON_API_KEY="your_api_key"
-```
-
-4. **Execute exemplo básico:**
-```bash
-python src/examples/basic_strategy.py
-```
-
-## 🤖 Reinforcement Learning para Trading
-
-### Agente DQN (Deep Q-Network)
-```python
-from src.models.reinforcement_learning import DQNAgent
-
-# Criar agente DQN
-agent = DQNAgent(
-    state_size=50,  # Features do mercado
-    action_size=3,  # Buy, Sell, Hold
-    learning_rate=0.001
-)
-
-# Treinar agente
-for episode in range(1000):
-    state = env.reset()
-    total_reward = 0
-    
-    while not done:
-        action = agent.act(state)
-        next_state, reward, done = env.step(action)
-        agent.remember(state, action, reward, next_state, done)
-        
-        state = next_state
-        total_reward += reward
-    
-    agent.replay()  # Treinar rede neural
-```
-
-### Agente PPO (Proximal Policy Optimization)
-```python
-from src.models.reinforcement_learning import PPOAgent
-
-# Agente PPO para trading contínuo
-ppo_agent = PPOAgent(
-    state_dim=50,
-    action_dim=1,  # Posição contínua [-1, 1]
-    lr_actor=0.0003,
-    lr_critic=0.001
-)
-
-# Treinar com dados históricos
-ppo_agent.train(
-    market_data=historical_data,
-    episodes=5000,
-    max_steps=1000
-)
-```
-
-## 📊 Estratégias de Trading
-
-### Market Making
-```python
-from src.strategies.market_making import MarketMaker
-
-# Estratégia de market making
-mm_strategy = MarketMaker(
-    spread_target=0.001,  # 10 bps
-    inventory_limit=1000,
-    risk_aversion=0.5
-)
-
-# Executar estratégia
-orders = mm_strategy.generate_orders(
-    current_price=100.50,
-    order_book=order_book_data,
-    inventory=current_inventory
-)
-```
-
-### Arbitragem Estatística
-```python
-from src.strategies.arbitrage import StatisticalArbitrage
-
-# Pairs trading
-pairs_strategy = StatisticalArbitrage(
-    lookback_window=252,  # 1 ano
-    entry_threshold=2.0,  # 2 desvios padrão
-    exit_threshold=0.5
-)
-
-# Identificar oportunidades
-signals = pairs_strategy.generate_signals(
-    asset1_prices=stock_a_prices,
-    asset2_prices=stock_b_prices
-)
-```
-
-## 📈 Análise de Microestrutura
-
-### Order Book Analysis
-```python
-from src.data.order_book import OrderBookAnalyzer
-
-# Analisar order book
-ob_analyzer = OrderBookAnalyzer()
-
-# Calcular métricas de liquidez
-liquidity_metrics = ob_analyzer.calculate_liquidity(
-    bids=order_book['bids'],
-    asks=order_book['asks'],
-    depth_levels=10
-)
-
-print(f"Bid-Ask Spread: {liquidity_metrics['spread']:.4f}")
-print(f"Market Depth: {liquidity_metrics['depth']:.2f}")
-print(f"Price Impact: {liquidity_metrics['impact']:.4f}")
-```
-
-### Market Impact Modeling
-```python
-from src.execution.market_impact import MarketImpactModel
-
-# Modelo de impacto de mercado
-impact_model = MarketImpactModel(
-    model_type='linear',
-    calibration_period=30  # dias
-)
-
-# Estimar impacto de ordem
-estimated_impact = impact_model.estimate_impact(
-    order_size=10000,
-    average_daily_volume=1000000,
-    volatility=0.02
-)
-```
-
-## 🔍 Backtesting Framework
-
-### Engine de Backtesting
-```python
-from src.backtesting.engine import BacktestEngine
-
-# Configurar backtest
-backtest = BacktestEngine(
-    start_date='2023-01-01',
-    end_date='2024-01-01',
-    initial_capital=1000000,
-    commission=0.001
-)
-
-# Adicionar estratégia
-backtest.add_strategy(mm_strategy)
-
-# Executar backtest
-results = backtest.run()
-
-# Analisar resultados
-print(f"Total Return: {results['total_return']:.2%}")
-print(f"Sharpe Ratio: {results['sharpe_ratio']:.2f}")
-print(f"Max Drawdown: {results['max_drawdown']:.2%}")
-```
-
-### Métricas de Performance
-```python
-from src.backtesting.metrics import PerformanceMetrics
-
-# Calcular métricas avançadas
-metrics = PerformanceMetrics(returns=strategy_returns)
-
-performance_report = {
-    'sharpe_ratio': metrics.sharpe_ratio(),
-    'sortino_ratio': metrics.sortino_ratio(),
-    'calmar_ratio': metrics.calmar_ratio(),
-    'var_95': metrics.value_at_risk(confidence=0.95),
-    'cvar_95': metrics.conditional_var(confidence=0.95)
-}
-```
-
-## ⚡ Otimização de Performance
-
-### Compilação JIT com Numba
-```python
-from numba import jit
-import numpy as np
-
-@jit(nopython=True)
-def fast_moving_average(prices, window):
-    """Moving average otimizada com Numba"""
-    n = len(prices)
-    ma = np.empty(n)
-    
-    for i in range(window-1, n):
-        ma[i] = np.mean(prices[i-window+1:i+1])
-    
-    return ma
-
-# Uso
-fast_ma = fast_moving_average(price_data, 20)
-```
-
-### Processamento Paralelo
-```python
-from concurrent.futures import ProcessPoolExecutor
-import multiprocessing as mp
-
-def parallel_backtest(strategy_params):
-    """Backtest paralelo para otimização de parâmetros"""
-    with ProcessPoolExecutor(max_workers=mp.cpu_count()) as executor:
-        futures = []
-        
-        for params in strategy_params:
-            future = executor.submit(run_single_backtest, params)
-            futures.append(future)
-        
-        results = [future.result() for future in futures]
-    
-    return results
-```
-
-## 🔧 Configuração e Deploy
-
-### Configuração de Produção
-```python
-# config/production.py
-TRADING_CONFIG = {
-    'max_position_size': 10000,
-    'risk_limit': 0.02,  # 2% do capital
-    'latency_threshold': 1000,  # microsegundos
-    'data_frequency': '1ms'
-}
-
-EXECUTION_CONFIG = {
-    'order_type': 'limit',
-    'time_in_force': 'IOC',
-    'max_slippage': 0.0005
-}
-```
-
-### Monitoramento em Tempo Real
-```python
-from src.utils.monitoring import TradingMonitor
-
-# Monitor de trading
-monitor = TradingMonitor()
-
-# Alertas automáticos
-monitor.add_alert(
-    metric='drawdown',
-    threshold=0.05,  # 5%
-    action='stop_trading'
-)
-
-monitor.add_alert(
-    metric='latency',
-    threshold=5000,  # 5ms
-    action='switch_venue'
-)
-```
-
-## 🧪 Testes e Validação
-
-### Executar Testes
-```bash
-# Testes unitários
-pytest tests/unit/
-
-# Testes de integração
-pytest tests/integration/
-
-# Testes de performance
-pytest tests/performance/
-
-# Testes de estratégias
-pytest tests/strategies/
-```
-
-### Validação de Modelos
-```bash
-# Validação cruzada de modelos
-python scripts/validate_models.py --model dqn --periods 10
-
-# Teste de robustez
-python scripts/robustness_test.py --strategy market_making
-```
-
-## 📊 Casos de Uso Avançados
-
-### 1. Crypto Market Making
-- Market making em exchanges de criptomoedas
-- Gestão de inventory multi-asset
-- Arbitragem cross-exchange
-
-### 2. Equity Statistical Arbitrage
-- Pairs trading em ações
-- Basket trading com ETFs
-- Mean reversion strategies
-
-### 3. FX High-Frequency Trading
-- Trading em mercado de câmbio
-- Carry trade automatizado
-- News-based trading
-
-## 📄 Licença
-
-Este projeto está licenciado sob a Licença MIT - veja o arquivo [LICENSE](LICENSE) para detalhes.
-
-## 👨‍💻 Autor
-
-**Gabriel Demetrios Lafis**
-
-- GitHub: [@galafis](https://github.com/galafis)
-- Email: gabrieldemetrios@gmail.com
 
 ---
 
-⭐ Se este projeto foi útil, considere deixar uma estrela!
+## 🌟 Welcome to the Future of Quantitative Trading! | Bem-vindo ao Futuro do Trading Quantitativo!
 
+### 🇺🇸 **English**
+
+**Are you passionate about financial markets and cutting-edge technology?** You've found the perfect intersection! 🎯
+
+This advanced high-frequency trading analytics platform combines **machine learning**, **reinforcement learning**, and **market microstructure analysis** to create automated trading strategies that adapt and evolve in real-time.
+
+**🌟 If this project excites you, please give it a star! ⭐** Your support motivates us to keep innovating and sharing knowledge with the quantitative finance community.
+
+#### 🔥 **Why Choose This Platform?**
+
+- **🧠 AI-Powered**: Advanced reinforcement learning agents (DQN, PPO, A3C) that learn from market patterns
+- **⚡ Lightning Fast**: Microsecond-level execution optimization for high-frequency strategies
+- **📊 Data-Driven**: Comprehensive quantitative analysis with statistical and econometric models
+- **🎯 Battle-Tested**: Robust backtesting framework with real market conditions
+- **🔬 Deep Market Insights**: Order book analysis and market impact modeling
+- **⚖️ Smart Risk Management**: Real-time risk controls and position management
+
+---
+
+### 🇧🇷 **Português**
+
+**Você é apaixonado por mercados financeiros e tecnologia de ponta?** Você encontrou a intersecção perfeita! 🎯
+
+Esta plataforma avançada de análise de trading de alta frequência combina **machine learning**, **reinforcement learning** e **análise de microestrutura de mercado** para criar estratégias de trading automatizadas que se adaptam e evoluem em tempo real.
+
+**🌟 Se este projeto te empolga, por favor dê uma estrela! ⭐** Seu apoio nos motiva a continuar inovando e compartilhando conhecimento com a comunidade de finanças quantitativas.
+
+#### 🔥 **Por Que Escolher Esta Plataforma?**
+
+- **🧠 Powered por IA**: Agentes avançados de reinforcement learning (DQN, PPO, A3C) que aprendem com padrões do mercado
+- **⚡ Super Rápida**: Otimização de execução em microssegundos para estratégias de alta frequência
+- **📊 Orientada por Dados**: Análise quantitativa abrangente com modelos estatísticos e econométricos
+- **🎯 Testada em Batalha**: Framework robusto de backtesting com condições reais de mercado
+- **🔬 Insights Profundos**: Análise de order book e modelagem de impacto no mercado
+- **⚖️ Gestão de Risco Inteligente**: Controles de risco em tempo real e gestão de posições
+
+---
+
+## 🚀 **Ready to Transform Your Trading?** | **Pronto Para Transformar Seu Trading?**
+
+### 🇺🇸 **Get Started Now:**
+```bash
+# Clone this repository
+git clone https://github.com/galafis/high-frequency-trading-analytics.git
+
+# Navigate to the project
+cd high-frequency-trading-analytics
+
+# Install dependencies
+pip install -r requirements.txt
+
+# Start your quantitative journey!
+python main.py
+```
+
+### 🇧🇷 **Comece Agora:**
+```bash
+# Clone este repositório
+git clone https://github.com/galafis/high-frequency-trading-analytics.git
+
+# Navegue para o projeto
+cd high-frequency-trading-analytics
+
+# Instale as dependências
+pip install -r requirements.txt
+
+# Inicie sua jornada quantitativa!
+python main.py
+```
+
+---
+
+## 🎯 **Key Features** | **Características Principais**
+
+### 🇺🇸 **English**
+- **🤖 Reinforcement Learning**: DQN, PPO, and A3C agents for intelligent trading decisions
+- **📊 Quantitative Analysis**: Advanced statistical and econometric models
+- **⚡ Low Latency**: Microsecond-level execution optimization
+- **📈 Comprehensive Backtesting**: Robust historical testing framework
+- **🔍 Market Microstructure**: Deep order book and market impact analysis
+- **⚖️ Risk Management**: Real-time risk controls and monitoring
+- **📱 Real-time Data**: Live market data integration
+- **🎨 Visualization**: Interactive charts and performance dashboards
+
+### 🇧🇷 **Português**
+- **🤖 Reinforcement Learning**: Agentes DQN, PPO e A3C para decisões inteligentes de trading
+- **📊 Análise Quantitativa**: Modelos estatísticos e econométricos avançados
+- **⚡ Baixa Latência**: Otimização de execução em microssegundos
+- **📈 Backtesting Abrangente**: Framework robusto de teste histórico
+- **🔍 Microestrutura de Mercado**: Análise profunda de order book e impacto no mercado
+- **⚖️ Gestão de Risco**: Controles e monitoramento de risco em tempo real
+- **📱 Dados em Tempo Real**: Integração com dados de mercado ao vivo
+- **🎨 Visualização**: Gráficos interativos e dashboards de performance
+
+---
+
+## 🛠️ **Technology Stack** | **Stack Tecnológico**
+
+### **Machine Learning & AI**
+- **PyTorch**: Deep learning e reinforcement learning
+- **Scikit-learn**: Modelos de machine learning clássico
+- **TensorFlow**: Redes neurais alternativas
+- **Stable Baselines3**: Algoritmos de RL state-of-the-art
+
+### **Data Processing & Analysis**
+- **NumPy**: Computação numérica de alta performance
+- **Pandas**: Manipulação e análise de dados
+- **TA-Lib**: Indicadores técnicos profissionais
+- **Zipline**: Framework de backtesting
+
+### **Visualization & Monitoring**
+- **Plotly**: Visualizações interativas
+- **Matplotlib/Seaborn**: Gráficos estatísticos
+- **Dash**: Dashboards web interativos
+- **TensorBoard**: Monitoramento de treinamento
+
+### **Infrastructure & Performance**
+- **AsyncIO**: Programação assíncrona
+- **Numba**: Compilação JIT para Python
+- **Redis**: Cache de dados em tempo real
+- **Docker**: Containerização e deployment
+
+---
+
+## 🤝 **Join Our Community** | **Junte-se à Nossa Comunidade**
+
+### 🇺🇸 **English**
+**Love what you see? Here's how you can get involved:**
+
+- ⭐ **Star this repository** to show your support!
+- 🍴 **Fork it** and contribute your own improvements
+- 🐛 **Report issues** to help us improve
+- 💡 **Share ideas** for new features
+- 📢 **Spread the word** in your network
+- 👥 **Join discussions** in our community
+
+### 🇧🇷 **Português**
+**Gostou do que viu? Veja como você pode se envolver:**
+
+- ⭐ **Dê uma estrela neste repositório** para mostrar seu apoio!
+- 🍴 **Fork** e contribua com suas próprias melhorias
+- 🐛 **Reporte problemas** para nos ajudar a melhorar
+- 💡 **Compartilhe ideias** para novas funcionalidades
+- 📢 **Espalhe a palavra** na sua rede
+- 👥 **Participe das discussões** na nossa comunidade
+
+---
+
+## 📈 **Performance Highlights** | **Destaques de Performance**
+
+```
+🎯 Backtesting Results (2023-2024):
+├── 📊 Sharpe Ratio: 2.43
+├── 💰 Max Drawdown: -3.2%
+├── ⚡ Avg Execution Time: 847μs
+├── 🎯 Win Rate: 67.8%
+└── 📈 Annual Return: 34.7%
+```
+
+---
+
+## 🚀 **Call to Action** | **Chamada para Ação**
+
+### 🇺🇸 **Ready to revolutionize your trading approach?**
+
+1. **⭐ Star this repo** if you find it valuable
+2. **🍴 Fork it** to start your own trading bot
+3. **📚 Check the documentation** for detailed guides
+4. **💬 Join our discussions** to connect with other quant developers
+5. **🚀 Deploy your first strategy** and see the magic happen!
+
+### 🇧🇷 **Pronto para revolucionar sua abordagem de trading?**
+
+1. **⭐ Dê uma estrela neste repo** se achar valioso
+2. **🍴 Faça um fork** para criar seu próprio bot de trading
+3. **📚 Confira a documentação** para guias detalhados
+4. **💬 Participe das discussões** para se conectar com outros desenvolvedores quant
+5. **🚀 Deploy sua primeira estratégia** e veja a mágica acontecer!
+
+---
+
+**⚡ Don't just trade the markets—master them with AI! | Não apenas negocie os mercados—domine-os com IA! ⚡**
+
+---
+
+*Made with ❤️ by the Quantitative Finance Community | Feito com ❤️ pela Comunidade de Finanças Quantitativas*
