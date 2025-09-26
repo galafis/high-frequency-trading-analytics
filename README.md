@@ -1,8 +1,30 @@
 # 🚀 High-Frequency Trading Analytics
 
-[![⭐ Star this repository](https://img.shields.io/github/stars/galafis/high-frequency-trading-analytics?style=social)](https://github.com/galafis/high-frequency-trading-analytics/stargazers) [![🍴 Fork this project](https://img.shields.io/github/forks/galafis/high-frequency-trading-analytics?style=social)](https://github.com/galafis/high-frequency-trading-analytics/network/members) [![📝 License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](https://github.com/galafis/high-frequency-trading-analytics/blob/main/LICENSE)
+<!-- Badges Section -->
+<div align="center">
 
-![Python](https://img.shields.io/badge/python-v3.8+-blue.svg) ![PyTorch](https://img.shields.io/badge/PyTorch-Deep%20Learning-red.svg) ![NumPy](https://img.shields.io/badge/numpy-%23013243.svg) ![Pandas](https://img.shields.io/badge/pandas-%23150458.svg) ![Jupyter](https://img.shields.io/badge/jupyter-%23FA0F00.svg)
+[![Build Status](https://img.shields.io/github/actions/workflow/status/galafis/high-frequency-trading-analytics/ci.yml?branch=main&style=for-the-badge&logo=github)](https://github.com/galafis/high-frequency-trading-analytics/actions)
+[![Code Coverage](https://img.shields.io/codecov/c/github/galafis/high-frequency-trading-analytics?style=for-the-badge&logo=codecov)](https://codecov.io/gh/galafis/high-frequency-trading-analytics)
+[![⭐ Stars](https://img.shields.io/github/stars/galafis/high-frequency-trading-analytics?style=for-the-badge&logo=github&color=yellow)](https://github.com/galafis/high-frequency-trading-analytics/stargazers)
+[![🍴 Forks](https://img.shields.io/github/forks/galafis/high-frequency-trading-analytics?style=for-the-badge&logo=github&color=blue)](https://github.com/galafis/high-frequency-trading-analytics/network/members)
+[![👁️ Watchers](https://img.shields.io/github/watchers/galafis/high-frequency-trading-analytics?style=for-the-badge&logo=github&color=green)](https://github.com/galafis/high-frequency-trading-analytics/watchers)
+[![📝 License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg?style=for-the-badge)](https://github.com/galafis/high-frequency-trading-analytics/blob/main/LICENSE)
+
+[![Python](https://img.shields.io/badge/python-v3.8+-blue.svg?style=for-the-badge&logo=python)](https://www.python.org/)
+[![PyTorch](https://img.shields.io/badge/PyTorch-Deep%20Learning-red.svg?style=for-the-badge&logo=pytorch)](https://pytorch.org/)
+[![NumPy](https://img.shields.io/badge/numpy-%23013243.svg?style=for-the-badge&logo=numpy)](https://numpy.org/)
+[![Pandas](https://img.shields.io/badge/pandas-%23150458.svg?style=for-the-badge&logo=pandas)](https://pandas.pydata.org/)
+[![Jupyter](https://img.shields.io/badge/jupyter-%23FA0F00.svg?style=for-the-badge&logo=jupyter)](https://jupyter.org/)
+
+<!-- Contribution Badges -->
+[![Contributors](https://img.shields.io/github/contributors/galafis/high-frequency-trading-analytics?style=for-the-badge&logo=github)](https://github.com/galafis/high-frequency-trading-analytics/graphs/contributors)
+[![Issues](https://img.shields.io/github/issues/galafis/high-frequency-trading-analytics?style=for-the-badge&logo=github)](https://github.com/galafis/high-frequency-trading-analytics/issues)
+[![Pull Requests](https://img.shields.io/github/issues-pr/galafis/high-frequency-trading-analytics?style=for-the-badge&logo=github)](https://github.com/galafis/high-frequency-trading-analytics/pulls)
+[![Last Commit](https://img.shields.io/github/last-commit/galafis/high-frequency-trading-analytics?style=for-the-badge&logo=github)](https://github.com/galafis/high-frequency-trading-analytics/commits/main)
+
+</div>
+
+---
 
 ## 🌟 Welcome to the Future of Quantitative Trading! | Bem-vindo ao Futuro do Trading Quantitativo!
 
@@ -12,7 +34,7 @@ Are you passionate about financial markets and cutting-edge technology? You've f
 
 This advanced high-frequency trading analytics platform combines machine learning, reinforcement learning, and market microstructure analysis to create automated trading strategies that adapt and evolve in real-time.
 
-🌟 If this project excites you, please give it a star! ⭐ Your support motivates continued innovation and knowledge sharing with the quantitative finance community.
+> **⭐ Love this project? Give it a star!** Your support motivates continued innovation and knowledge sharing with the quantitative finance community.
 
 #### 🔥 Why Choose This Platform?
 
@@ -27,138 +49,107 @@ This advanced high-frequency trading analytics platform combines machine learnin
 
 Você é apaixonado por mercados financeiros e tecnologia de ponta? Você encontrou a intersecção perfeita! 🎯
 
-Esta plataforma avançada de análise de trading de alta frequência combina machine learning, reinforcement learning e análise de microestrutura de mercado para criar estratégias de trading automatizadas que se adaptam e evoluem em tempo real.
+Esta plataforma avançada de análise de trading de alta frequência combina aprendizado de máquina, aprendizado por reforço e análise de microestrutura de mercado para criar estratégias de trading automatizadas que se adaptam e evoluem em tempo real.
 
-🌟 Se este projeto te empolga, por favor dê uma estrela! ⭐ Seu apoio motiva a continuação da inovação e compartilhamento de conhecimento com a comunidade de finanças quantitativas.
-
-#### 🔥 Por Que Escolher Esta Plataforma?
-
-• 🧠 **Powered por IA**: Agentes avançados de reinforcement learning (DQN, PPO, A3C) que aprendem com padrões do mercado
-• ⚡ **Super Rápida**: Técnicas de otimização de execução em microssegundos para estratégias de alta frequência
-• 📊 **Orientada por Dados**: Análise quantitativa abrangente com modelos estatísticos e econométricos
-• 🎯 **Testada em Batalha**: Framework robusto de backtesting com condições reais de mercado
-• 🔬 **Insights Profundos**: Soluções de análise de order book e modelagem de impacto no mercado
-• ⚖️ **Gestão de Risco Inteligente**: Sistemas de controles de risco em tempo real e gestão de posições
-
-## 🚀 Ready to Transform Your Trading? | Pronto Para Transformar Seu Trading?
-
-### 🇺🇸 Get Started Now:
-
-```bash
-# Clone this repository
-git clone https://github.com/galafis/high-frequency-trading-analytics.git
-
-# Navigate to the project
-cd high-frequency-trading-analytics
-
-# Install dependencies
-pip install -r requirements.txt
-
-# Start your quantitative journey!
-python main.py
-```
-
-### 🇧🇷 Comece Agora:
-
-```bash
-# Clone este repositório
-git clone https://github.com/galafis/high-frequency-trading-analytics.git
-
-# Navegue para o projeto
-cd high-frequency-trading-analytics
-
-# Instale as dependências
-pip install -r requirements.txt
-
-# Inicie sua jornada quantitativa!
-python main.py
-```
-
-## 🎯 Key Features | Características Principais
-
-### 🇺🇸 English
-
-• 🤖 **Reinforcement Learning**: DQN, PPO, and A3C agents for intelligent trading decisions
-• 📊 **Quantitative Analysis**: Advanced statistical and econometric models
-• ⚡ **Low Latency**: Microsecond-level execution optimization techniques
-• 📈 **Comprehensive Backtesting**: Robust historical testing framework
-• 🔍 **Market Microstructure**: Deep order book and market impact analysis
-• ⚖️ **Risk Management**: Real-time risk controls and monitoring systems
-• 📱 **Real-time Data**: Live market data integration solutions
-• 🎨 **Visualization**: Interactive charts and performance dashboards
-
-### 🇧🇷 Português
-
-• 🤖 **Reinforcement Learning**: Agentes DQN, PPO e A3C para decisões inteligentes de trading
-• 📊 **Análise Quantitativa**: Modelos estatísticos e econométricos avançados
-• ⚡ **Baixa Latência**: Técnicas de otimização de execução em microssegundos
-• 📈 **Backtesting Abrangente**: Framework robusto de teste histórico
-• 🔍 **Microestrutura de Mercado**: Análise profunda de order book e impacto no mercado
-• ⚖️ **Gestão de Risco**: Sistemas de controles e monitoramento de risco em tempo real
-• 📱 **Dados em Tempo Real**: Integração com dados de mercado ao vivo
-• 🎨 **Visualização**: Gráficos interativos e dashboards de performance
-
-## 🛠️ Technology Stack | Stack Tecnológico
-
-### Machine Learning & AI
-
-• **PyTorch**: Deep learning and reinforcement learning implementations
-• **Scikit-learn**: Classic machine learning models
-• **TensorFlow**: Alternative neural networks
-• **Stable Baselines3**: State-of-the-art RL algorithms
-
-### Data Processing & Analysis
-
-• **NumPy**: High-performance numerical computing
-• **Pandas**: Data manipulation and analysis workflows
-• **TA-Lib**: Professional technical indicators
-• **Zipline**: Backtesting framework
-
-### Visualization & Monitoring
-
-• **Plotly**: Interactive visualizations
-• **Matplotlib/Seaborn**: Statistical graphics
-• **Dash**: Interactive web dashboards
-• **TensorBoard**: Training monitoring systems
-
-### Infrastructure & Performance
-
-• **AsyncIO**: Asynchronous programming solutions
-• **Numba**: JIT compilation optimizations
-• **Redis**: Real-time data caching architecture
-• **Docker**: Containerization and deployment solutions
-
-## 📈 Performance Highlights | Destaques de Performance
-
-```
-🎯 Backtesting Results (2023-2024):
-├── 📊 Sharpe Ratio: 2.43
-├── 💰 Max Drawdown: -3.2%
-├── ⚡ Avg Execution Time: 847μs
-├── 🎯 Win Rate: 67.8%
-└── 📈 Annual Return: 34.7%
-```
-
-## 🚀 Call to Action | Chamada para Ação
-
-### 🇺🇸 Ready to experience revolutionary trading technology?
-
-1. ⭐ **Star this repo** to support innovative research
-2. 🍴 **Fork it** to explore algorithms and build upon this work
-3. 📚 **Check the documentation** for detailed implementation guides
-4. 💬 **Join discussions** to learn more about quantitative finance innovations
-5. 🚀 **Deploy strategies** and experience cutting-edge algorithms!
-
-### 🇧🇷 Pronto para experimentar tecnologia revolucionária de trading?
-
-1. ⭐ **Dê uma estrela** para apoiar pesquisa inovadora
-2. 🍴 **Faça um fork** para explorar algoritmos e construir sobre este trabalho
-3. 📚 **Confira a documentação** para guias detalhados de implementação
-4. 💬 **Participe das discussões** para aprender mais sobre inovações em finanças quantitativas
-5. 🚀 **Deploy as estratégias** e experimente algoritmos de ponta!
+> **⭐ Gostou deste projeto? Dê uma estrela!** Seu apoio motiva a inovação contínua e o compartilhamento de conhecimento com a comunidade de finanças quantitativas.
 
 ---
 
-**⚡ Don't just trade the markets—master them with AI innovations! | Não apenas negocie os mercados—domine-os com inovações em IA! ⚡**
+## 🤝 Join Our Community | Junte-se à Nossa Comunidade
 
-*Project conceived and developed by Gabriel Demetrios Lafis | Projeto idealizado e desenvolvido por Gabriel Demetrios Lafis.*
+<div align="center">
+
+### 🚀 **Ready to Contribute?** | **Pronto para Contribuir?**
+
+[![⭐ Star this repo](https://img.shields.io/badge/⭐-Star%20this%20repo-yellow?style=for-the-badge&logo=github)](https://github.com/galafis/high-frequency-trading-analytics)
+[![🍴 Fork & contribute](https://img.shields.io/badge/🍴-Fork%20&%20contribute-blue?style=for-the-badge&logo=github)](https://github.com/galafis/high-frequency-trading-analytics/fork)
+[![🐛 Report issues](https://img.shields.io/badge/🐛-Report%20issues-red?style=for-the-badge&logo=github)](https://github.com/galafis/high-frequency-trading-analytics/issues/new)
+[![💡 Request features](https://img.shields.io/badge/💡-Request%20features-green?style=for-the-badge&logo=github)](https://github.com/galafis/high-frequency-trading-analytics/issues/new?template=feature_request.md)
+[![📖 Improve docs](https://img.shields.io/badge/📖-Improve%20docs-purple?style=for-the-badge&logo=github)](https://github.com/galafis/high-frequency-trading-analytics/edit/main/README.md)
+
+</div>
+
+### 🎯 How You Can Help | Como Você Pode Ajudar
+
+| 🇺🇸 English | 🇧🇷 Português |
+|-------------|---------------|
+| **⭐ Star this repository** - Show your support! | **⭐ Dê uma estrela** - Mostre seu apoio! |
+| **🍴 Fork and contribute** - Add your expertise! | **🍴 Fork e contribua** - Adicione sua experiência! |
+| **🐛 Report bugs** - Help us improve quality | **🐛 Reporte bugs** - Ajude-nos a melhorar a qualidade |
+| **💡 Suggest features** - Share your ideas | **💡 Sugira funcionalidades** - Compartilhe suas ideias |
+| **📖 Improve documentation** - Make it clearer | **📖 Melhore a documentação** - Torne-a mais clara |
+| **🔍 Code review** - Share your knowledge | **🔍 Revisão de código** - Compartilhe seu conhecimento |
+
+---
+
+## 📸 Screenshots & Demo | Capturas de Tela & Demo
+
+<div align="center">
+
+### 🖥️ **Live Trading Dashboard** | **Dashboard de Trading ao Vivo**
+
+![Trading Dashboard](https://via.placeholder.com/800x400/1a1a2e/16213e?text=Trading+Dashboard+%7C+Coming+Soon)
+
+### 📊 **Real-time Market Analysis** | **Análise de Mercado em Tempo Real**
+
+![Market Analysis](https://via.placeholder.com/800x400/0f3460/16537e?text=Market+Analysis+%7C+Coming+Soon)
+
+### 🤖 **AI Model Performance** | **Performance do Modelo IA**
+
+![AI Performance](https://via.placeholder.com/800x400/533483/7209b7?text=AI+Performance+%7C+Coming+Soon)
+
+*📝 Note: Screenshots will be updated as features are implemented | Nota: Capturas de tela serão atualizadas conforme as funcionalidades forem implementadas*
+
+</div>
+
+---
+
+## 🚀 Quick Start | Início Rápido
+
+```bash
+# Clone the repository | Clone o repositório
+git clone https://github.com/galafis/high-frequency-trading-analytics.git
+cd high-frequency-trading-analytics
+
+# Install dependencies | Instale as dependências
+pip install -r requirements.txt
+
+# Run the main application | Execute a aplicação principal
+python main.py
+```
+
+---
+
+## 📈 Project Status | Status do Projeto
+
+- 🚧 **Active Development** | **Desenvolvimento Ativo**
+- 🔄 **Regular Updates** | **Atualizações Regulares**
+- 🌟 **Community Driven** | **Conduzido pela Comunidade**
+- 📚 **Well Documented** | **Bem Documentado**
+
+---
+
+## 💬 Get in Touch | Entre em Contato
+
+<div align="center">
+
+**Found this project valuable? Don't forget to ⭐ star and 🍴 fork it!**
+
+**Achou este projeto valioso? Não esqueça de dar ⭐ estrela e 🍴 fork!**
+
+[![GitHub followers](https://img.shields.io/github/followers/galafis?style=social)](https://github.com/galafis)
+[![Twitter Follow](https://img.shields.io/twitter/follow/galafis?style=social)](https://twitter.com/galafis)
+
+</div>
+
+---
+
+<div align="center">
+
+**🌟 If this project helped you, please consider giving it a star! ⭐**
+
+**🌟 Se este projeto te ajudou, considere dar uma estrela! ⭐**
+
+*Made with ❤️ by the Quantitative Finance Community*
+
+</div>
