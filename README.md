@@ -32,7 +32,7 @@
 
 Are you passionate about financial markets and cutting-edge technology? You've found the perfect intersection! 🎯
 
-This advanced high-frequency trading analytics platform combines machine learning, reinforcement learning, and market microstructure analysis to create automated trading strategies that adapt and evolve in real-time.
+This advanced high-frequency trading analytics platform combines machine learning, reinforcement learning, and market microstructure analysis to create automated trading strategies that adapt and evolve in real-time. It provides a robust and modular framework for research and implementation of HFT algorithms.
 
 > **⭐ Love this project? Give it a star!** Your support motivates continued innovation and knowledge sharing with the quantitative finance community.
 
@@ -49,74 +49,202 @@ This advanced high-frequency trading analytics platform combines machine learnin
 
 Você é apaixonado por mercados financeiros e tecnologia de ponta? Você encontrou a intersecção perfeita! 🎯
 
-Esta plataforma avançada de análise de trading de alta frequência combina aprendizado de máquina, aprendizado por reforço e análise de microestrutura de mercado para criar estratégias de trading automatizadas que se adaptam e evoluem em tempo real.
+Esta plataforma avançada de análise de trading de alta frequência combina aprendizado de máquina, aprendizado por reforço e análise de microestrutura de mercado para criar estratégias de trading automatizadas que se adaptam e evoluem em tempo real. Ela oferece uma estrutura robusta e modular para pesquisa e implementação de algoritmos de HFT.
 
 > **⭐ Gostou deste projeto? Dê uma estrela!** Seu apoio motiva a inovação contínua e o compartilhamento de conhecimento com a comunidade de finanças quantitativas.
 
 ---
 
-## 🤝 Join Our Community | Junte-se à Nossa Comunidade
+## 📸 Hero Image | Imagem Hero
 
 <div align="center">
 
-### 🚀 **Ready to Contribute?** | **Pronto para Contribuir?**
-
-[![⭐ Star this repo](https://img.shields.io/badge/⭐-Star%20this%20repo-yellow?style=for-the-badge&logo=github)](https://github.com/galafis/high-frequency-trading-analytics)
-[![🍴 Fork & contribute](https://img.shields.io/badge/🍴-Fork%20&%20contribute-blue?style=for-the-badge&logo=github)](https://github.com/galafis/high-frequency-trading-analytics/fork)
-[![🐛 Report issues](https://img.shields.io/badge/🐛-Report%20issues-red?style=for-the-badge&logo=github)](https://github.com/galafis/high-frequency-trading-analytics/issues/new)
-[![💡 Request features](https://img.shields.io/badge/💡-Request%20features-green?style=for-the-badge&logo=github)](https://github.com/galafis/high-frequency-trading-analytics/issues/new?template=feature_request.md)
-[![📖 Improve docs](https://img.shields.io/badge/📖-Improve%20docs-purple?style=for-the-badge&logo=github)](https://github.com/galafis/high-frequency-trading-analytics/edit/main/README.md)
+![High-Frequency Trading Analytics Hero Image](docs/hero_image.png)
 
 </div>
-
-### 🎯 How You Can Help | Como Você Pode Ajudar
-
-| 🇺🇸 English | 🇧🇷 Português |
-|-------------|---------------|
-| **⭐ Star this repository** - Show your support! | **⭐ Dê uma estrela** - Mostre seu apoio! |
-| **🍴 Fork and contribute** - Add your expertise! | **🍴 Fork e contribua** - Adicione sua experiência! |
-| **🐛 Report bugs** - Help us improve quality | **🐛 Reporte bugs** - Ajude-nos a melhorar a qualidade |
-| **💡 Suggest features** - Share your ideas | **💡 Sugira funcionalidades** - Compartilhe suas ideias |
-| **📖 Improve documentation** - Make it clearer | **📖 Melhore a documentação** - Torne-a mais clara |
-| **🔍 Code review** - Share your knowledge | **🔍 Revisão de código** - Compartilhe seu conhecimento |
 
 ---
 
-## 📸 Screenshots & Demo | Capturas de Tela & Demo
+## 📋 Overview | Visão Geral
 
-<div align="center">
+### 🇺🇸 English
 
-### 🖥️ **Live Trading Dashboard** | **Dashboard de Trading ao Vivo**
+This repository presents a complete solution for data analysis and strategy development in **High-Frequency Trading (HFT)**. It covers everything from feature engineering and data validation to building predictive models, trading strategies, and an interactive dashboard for visualizing results. The goal is to provide a robust and modular framework for HFT algorithm research and implementation.
 
-![Trading Dashboard](https://via.placeholder.com/800x400/1a1a2e/16213e?text=Trading+Dashboard+%7C+Coming+Soon)
+### 🇧🇷 Português
 
-### 📊 **Real-time Market Analysis** | **Análise de Mercado em Tempo Real**
+Este repositório apresenta uma solução completa para análise de dados e desenvolvimento de estratégias em **High-Frequency Trading (HFT)**. Ele abrange desde a engenharia de features e validação de dados até a construção de modelos preditivos, estratégias de negociação e um dashboard interativo para visualização de resultados. O objetivo é fornecer uma estrutura robusta e modular para pesquisa e implementação de algoritmos de HFT.
 
-![Market Analysis](https://via.placeholder.com/800x400/0f3460/16537e?text=Market+Analysis+%7C+Coming+Soon)
+---
 
-### 🤖 **AI Model Performance** | **Performance do Modelo IA**
+## ✨ Main Functionalities | Funcionalidades Principais
 
-![AI Performance](https://via.placeholder.com/800x400/533483/7209b7?text=AI+Performance+%7C+Coming+Soon)
+### 🇺🇸 English
 
-*📝 Note: Screenshots will be updated as features are implemented | Nota: Capturas de tela serão atualizadas conforme as funcionalidades forem implementadas*
+- **Feature Engineering**: Pipeline for creating essential market features for HFT.
+- **Data Validation**: Tools to ensure the integrity and correct format of input data.
+- **Modeling**: Implementation of predictive, risk, and reinforcement learning models.
+- **Trading Strategies**: Examples of strategies such as arbitrage, market making, and momentum.
+- **Backtesting**: Module for simulating and evaluating strategy performance.
+- **Interactive Dashboard**: Data and results visualization through a Streamlit application.
+- **Modular Structure**: Clear and scalable code organization for easy maintenance and expansion.
 
-</div>
+### 🇧🇷 Português
+
+- **Engenharia de Features**: Pipeline para criação de features de mercado essenciais para HFT.
+- **Validação de Dados**: Ferramentas para garantir a integridade e o formato correto dos dados de entrada.
+- **Modelagem**: Implementação de modelos preditivos, de risco e de aprendizado por reforço.
+- **Estratégias de Trading**: Exemplos de estratégias como arbitragem, market making e momentum.
+- **Backtesting**: Módulo para simulação e avaliação de performance de estratégias.
+- **Dashboard Interativo**: Visualização de dados e resultados através de um aplicativo Streamlit.
+- **Estrutura Modular**: Organização clara e escalável do código para fácil manutenção e expansão.
+
+---
+
+## 📁 Repository Structure | Estrutura do Repositório
+
+```
+high-frequency-trading-analytics/
+├── config/                 # Project configuration files | Arquivos de configuração do projeto
+├── docs/                   # Documentation, diagrams, and notebooks | Documentação, diagramas e notebooks
+│   ├── architecture_diagram.md
+│   ├── architecture_diagram.png
+│   ├── data_README.md
+│   ├── notebooks/          # Jupyter notebooks for exploration and prototyping | Notebooks Jupyter para exploração e prototipagem
+│   ├── tests_README.md
+│   └── PAIR_EXTRAORDINAIRE_ACHIEVEMENT.md # Achievement document | Documento de conquistas
+├── src/                    # Main application source code | Código-fonte principal da aplicação
+│   ├── backtesting/        # Strategy backtesting module | Módulo de backtesting de estratégias
+│   ├── data/               # Data processing and engineering module | Módulo de processamento e engenharia de dados
+│   ├── execution/          # Order execution and latency management module | Módulo de execução de ordens e gerenciamento de latência
+│   ├── models/             # Model implementations (predictive, risk, RL) | Implementações de modelos (preditivos, risco, RL)
+│   ├── scripts/            # Utility scripts | Scripts utilitários
+│   ├── strategies/         # Trading strategy implementations | Implementações de estratégias de trading
+│   ├── utils/              # Utility functions and helpers | Funções utilitárias e helpers
+│   ├── dashboard.py        # Streamlit dashboard application | Aplicação Streamlit para dashboard
+│   └── validate_data.py    # Data validation script | Script de validação de dados
+├── tests/                  # Unit and integration tests | Testes unitários e de integração
+├── .gitignore              # Files and folders to be ignored by Git | Arquivos e pastas a serem ignorados pelo Git
+├── LICENSE                 # Project license | Licença do projeto
+
+└── README.md               # This file | Este arquivo
+```
 
 ---
 
 ## 🚀 Quick Start | Início Rápido
 
+### 🇺🇸 English
+
+### Prerequisites
+
+Ensure you have Python 3.8+ installed. Using a virtual environment is recommended.
+
 ```bash
-# Clone the repository | Clone o repositório
-git clone https://github.com/galafis/high-frequency-trading-analytics.git
-cd high-frequency-trading-analytics
-
-# Install dependencies | Instale as dependências
+python -m venv venv
+source venv/bin/activate  # On Windows use `venv\Scripts\activate`
 pip install -r requirements.txt
-
-# Run the main application | Execute a aplicação principal
-python main.py
 ```
+
+### Data Validation
+
+Before processing any data, you can validate it using the `validate_data.py` script:
+
+```bash
+python src/validate_data.py data/raw/your_data_file.csv
+```
+
+### Feature Engineering
+
+To generate features from raw data, use the `features.py` script:
+
+```bash
+python src/data/features.py --input data/raw/your_data_file.csv --output_parquet data/processed/features.parquet --output_csv data/processed/features.csv
+```
+
+### Running the Dashboard
+
+To visualize processed data and strategy performance, run the Streamlit dashboard:
+
+```bash
+streamlit run src/dashboard.py
+```
+
+### 🇧🇷 Português
+
+### Pré-requisitos
+
+Certifique-se de ter Python 3.8+ instalado. Recomenda-se o uso de um ambiente virtual.
+
+```bash
+python -m venv venv
+source venv/bin/activate  # No Windows use `venv\Scripts\activate`
+pip install -r requirements.txt
+```
+
+### Validação de Dados
+
+Antes de processar qualquer dado, você pode validá-lo usando o script `validate_data.py`:
+
+```bash
+python src/validate_data.py data/raw/seu_arquivo_de_dados.csv
+```
+
+### Engenharia de Features
+
+Para gerar features a partir de dados brutos, utilize o script `features.py`:
+
+```bash
+python src/data/features.py --input data/raw/seu_arquivo_de_dados.csv --output_parquet data/processed/features.parquet --output_csv data/processed/features.csv
+```
+
+### Executando o Dashboard
+
+Para visualizar os dados processados e a performance das estratégias, execute o dashboard Streamlit:
+
+```bash
+streamlit run src/dashboard.py
+```
+
+---
+
+## 📐 Architecture Diagram | Diagrama de Arquitetura
+
+<div align="center">
+
+![Architecture Diagram](docs/architecture_diagram.png)
+
+</div>
+
+---
+
+## 🤝 Contribution | Contribuição
+
+### 🇺🇸 English
+
+Contributions are welcome! Please follow the contribution guidelines for this project.
+
+### 🇧🇷 Português
+
+Contribuições são bem-vindas! Por favor, siga as diretrizes de contribuição para este projeto.
+
+---
+
+## 📄 License | Licença
+
+### 🇺🇸 English
+
+This project is licensed under the MIT License. See the `LICENSE` file for more details.
+
+### 🇧🇷 Português
+
+Este projeto está licenciado sob a licença MIT. Veja o arquivo `LICENSE` para mais detalhes.
+
+---
+
+## 👤 Author | Autor
+
+**Gabriel Demetrios Lafis**
 
 ---
 
@@ -148,8 +276,8 @@ python main.py
 
 **🌟 If this project helped you, please consider giving it a star! ⭐**
 
-**🌟 Se este projeto te ajudou, considere dar uma estrela! ⭐**
+**🌟 Se este projeto te ajudou, por favor, considere dar uma estrela! ⭐**
 
-*Made with ❤️ by the Quantitative Finance Community*
+*Made with ❤️ by Gabriel Demetrios Lafis*
 
 </div>

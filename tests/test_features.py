@@ -23,9 +23,8 @@ from datetime import datetime, timedelta
 import sys
 
 # Adicionar o diretório raiz ao path para importar features.py
-sys.path.insert(0, os.path.join(os.path.dirname(__file__), '..'))
-
-from features import feature_engineering, export_features
+sys.path.insert(0, os.path.abspath(os.path.join(os.path.dirname(__file__), '..')))
+from src.data.features import feature_engineering, export_features
 
 
 class TestFeatureEngineering:

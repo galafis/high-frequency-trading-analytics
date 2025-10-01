@@ -82,7 +82,7 @@ def validate_csv_schema(file_path: str) -> bool:
     except pd.errors.ParserError as e:
         raise AssertionError(f"Erro ao analisar CSV: {str(e)}")
     except Exception as e:
-        raise Exception(f"Erro inesperado durante validação: {str(e)}")
+        raise AssertionError(f"Erro inesperado durante validação: {str(e)}")
 
 
 def main():
@@ -108,7 +108,7 @@ def main():
         
     except AssertionError as e:
         print(f"Erro de validação: {str(e)}")
-        raise  # Re-raise AssertionError conforme solicitado
+        raise
         
     except FileNotFoundError as e:
         print(f"Erro: {str(e)}")
