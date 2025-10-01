@@ -55,11 +55,11 @@ Esta plataforma avançada de análise de trading de alta frequência combina apr
 
 ---
 
-## 📸 Hero Image | Imagem Hero
+## 🖼️ Hero Image | Imagem Hero
 
 <div align="center">
 
-![High-Frequency Trading Analytics Hero Image](docs/hero_image.png)
+![High-Frequency Trading Analytics Hero Image](docs/new_hero_image.png)
 
 </div>
 
