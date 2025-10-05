@@ -18,9 +18,9 @@ stable-baselines3>=2.0.0,<2.5.0
 gymnasium>=0.29.1,<1.0.0
 
 # Financial Data and Analysis  
-quantlib>=1.31,<1.35
+# quantlib>=1.31,<1.35  # Removido temporariamente - não essencial para testes
 yfinance>=0.2.18,<0.2.55  # versão compatível
-alpaca-trade-api>=3.0.0,<3.1.0  # versão específica para compatibilidade
+# alpaca-trade-api>=3.1.1,<3.2.0  # Removido - causa conflitos de dependência
 ccxt>=4.0.0,<4.4.0
 
 # High-Performance Computing

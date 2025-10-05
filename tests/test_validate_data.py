@@ -38,7 +38,7 @@ class TestValidateData:
         """Testa se AssertionError é levantado para colunas obrigatórias ausentes."""
         content = "col1,col2\n1,2"
         file_path = temp_csv_file(content)
-        with pytest.raises(AssertionError, match="Colunas obrigatórias ausentes: \['timestamp', 'price'\]"):
+        with pytest.raises(AssertionError, match=r"Colunas obrigatórias ausentes: \['timestamp', 'price'\]"):
             validate_csv_schema(file_path)
 
     def test_null_values_in_required_columns(self, temp_csv_file):
