@@ -3,7 +3,6 @@
 <!-- Badges Section -->
 <div align="center">
 
-[![Build Status](https://img.shields.io/github/actions/workflow/status/galafis/high-frequency-trading-analytics/test_features.yml?branch=main&style=for-the-badge&logo=github)](https://github.com/galafis/high-frequency-trading-analytics/actions)
 [![Python Version](https://img.shields.io/badge/python-3.8%2B-blue?style=for-the-badge&logo=python)](https://www.python.org/)
 [![Code-Style](https://img.shields.io/badge/code%20style-black-000000.svg?style=for-the-badge&logo=python)](https://github.com/psf/black)
 [![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg?style=for-the-badge)](https://github.com/galafis/high-frequency-trading-analytics/blob/main/LICENSE)
@@ -68,8 +67,6 @@ Visual analysis is crucial for understanding market dynamics and feature behavio
 
 ```
 high-frequency-trading-analytics/
-├── .github/workflows/      # CI/CD workflows for automated testing
-│   └── test_features.yml
 ├── config/                 # Project configuration files
 │   ├── config.py
 │   └── config.yaml
