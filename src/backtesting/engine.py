@@ -57,11 +57,12 @@ class BacktestEngine:
             for strat in self.strategy_callbacks:
                 orders = strat(row)
                 for o in orders:
-                    trade_cost = o['quantity'] * row['price'] + abs(o['quantity'] * row['price'] * self.commission)
+                    notional = o['quantity'] * row['price']
+                    commission = abs(notional * self.commission)
                     if o['side'] == 'buy':
-                        current_capital -= trade_cost
+                        current_capital -= notional + commission
                     elif o['side'] == 'sell':
-                        current_capital += trade_cost
+                        current_capital += notional - commission
                     self.trades.append({'date': dt, **o, 'price': row['price']})
         self.capital = current_capital
         self._calculate_performance()
