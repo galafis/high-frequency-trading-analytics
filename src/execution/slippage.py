@@ -27,3 +27,37 @@ def calcular_slippage(preco_teorico: float, volume: float, liquidez: float, fato
     Returns:
         float: Valor da slippage a ser acrescido/subtraído do preço.
     """
+    if liquidez <= 0:
+        raise ValueError("Liquidez deve ser maior que zero")
+    ratio = volume / liquidez
+    slippage = preco_teorico * fator_slippage * ratio
+    return slippage
+
+
+def simular_execucao(preco_teorico: float, volume: float, liquidez: float,
+                     lado: str = "compra", fator_slippage: float = 0.0005) -> dict:
+    """
+    Simula uma execução de ordem mostrando o efeito prático da slippage.
+
+    Args:
+        preco_teorico (float): Preço esperado sem impacto.
+        volume (float): Volume da ordem.
+        liquidez (float): Liquidez disponível.
+        lado (str): 'compra' ou 'venda'.
+        fator_slippage (float): Fator ajustável do modelo.
+
+    Returns:
+        dict: Detalhes da execução simulada contendo preço teórico,
+              slippage calculada, preço efetivo e custo total.
+    """
+    slip = calcular_slippage(preco_teorico, volume, liquidez, fator_slippage)
+    if lado == "compra":
+        preco_efetivo = preco_teorico + slip
+    else:
+        preco_efetivo = preco_teorico - slip
+    return {
+        "preco_teorico": preco_teorico,
+        "slippage": slip,
+        "preco_efetivo": preco_efetivo,
+        "custo_total": preco_efetivo * volume
+    }

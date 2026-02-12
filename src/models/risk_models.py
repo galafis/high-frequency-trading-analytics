@@ -70,6 +70,11 @@ class PortfolioRiskManager(BaseRiskModel):
 class PositionSizer(BaseRiskModel):
     """Dimensionamento de posições baseado em risco."""
     
+    def calculate_risk(self, data: np.ndarray) -> float:
+        """Calcula risco baseado em dados de retornos."""
+        # TODO: Implementar cálculo de risco
+        pass
+    
     def calculate_position_size(self, 
                               account_balance: float,
                               risk_per_trade: float,

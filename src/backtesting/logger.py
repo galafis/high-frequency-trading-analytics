@@ -2,7 +2,7 @@
 logger.py
 
 Logger customizável do projeto, suporta logging em console, arquivo e diferentes níveis para cada subsistema (dados, execução, risco, estratégias, etc).
-Pensado para integração com sistemas produtivos, CI/CD e auditoria.
+Pensado para integração com sistemas produtivos e auditoria.
 
 Autor: Gabriel Demetrios Lafis
 Data: setembro/2025

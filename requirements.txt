@@ -1,6 +1,5 @@
 # High-Frequency Trading Analytics Dependencies
 # =========================================
-# Versões testadas e compatíveis para CI/CD
 
 # Core Data Science and Machine Learning
 numpy>=1.24.0,<2.1.0

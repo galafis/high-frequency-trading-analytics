@@ -42,7 +42,9 @@ def export_features(df, out_parquet, out_csv):
         'price', 'price_lag1', 'log_return_1', 'price_ma_10', 'vol_10',
         'obi', 'spread', 'partial_exec_flag', 'price_zscore_5min', 'log_return_scaled'
     ]
-    out = df[feature_cols].dropna()
+    # Only keep columns that actually exist in the dataframe
+    available_cols = [c for c in feature_cols if c in df.columns]
+    out = df[available_cols].dropna()
     out.to_parquet(out_parquet)
     out.to_csv(out_csv)
     logging.info(f"Exportação concluída: {out.shape}")

@@ -19,8 +19,8 @@ import torch.nn.functional as F
 from torch.distributions import Categorical, Normal
 from collections import deque, namedtuple
 import random
-import gym
-from gym import spaces
+import gymnasium as gym
+from gymnasium import spaces
 import logging
 from typing import Dict, List, Tuple, Optional, Union, Any
 
