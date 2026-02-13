@@ -36,6 +36,21 @@ Conjunto de modulos Python para analise e simulacao de estrategias de trading de
 | `src/validate_data.py` | Validador de schema CSV (colunas obrigatorias, tipos, valores nulos) |
 | `config/` | Configuracao YAML com parametros de trading, dados e modelos |
 
+### Arquitetura
+
+```mermaid
+graph TD
+    CFG["config/config.py<br/>Loader de Configuracao YAML"] --> ENG
+    VD["validate_data.py<br/>Validador de Schema CSV"] --> FE
+    FE["data/features.py<br/>Feature Engineering"] --> ENG["backtesting/engine.py<br/>Engine de Backtesting"]
+    ENG --> MET["backtesting/metrics.py<br/>Metricas Financeiras"]
+    ENG --> VIS["backtesting/visualization.py<br/>Graficos de Equity & Drawdown"]
+    FE --> RL["models/reinforcement_learning.py<br/>Agentes DQN & PPO"]
+    OM["execution/order_manager.py<br/>Gerenciador de Ordens Async"] --> SL["execution/slippage.py<br/>Calculo de Slippage"]
+    OM --> LAT["execution/latency.py<br/>Monitor de Latencia"]
+    FE --> DASH["dashboard.py<br/>Dashboard Streamlit"]
+```
+
 ### Estrutura
 
 ```
@@ -138,6 +153,21 @@ Collection of Python modules for high-frequency trading analysis and simulation.
 | `src/dashboard.py` | Streamlit dashboard for interactive feature visualization |
 | `src/validate_data.py` | CSV schema validator (required columns, types, null values) |
 | `config/` | YAML configuration with trading, data, and model parameters |
+
+### Architecture
+
+```mermaid
+graph TD
+    CFG["config/config.py<br/>YAML Config Loader"] --> ENG
+    VD["validate_data.py<br/>CSV Schema Validator"] --> FE
+    FE["data/features.py<br/>Feature Engineering"] --> ENG["backtesting/engine.py<br/>Backtesting Engine"]
+    ENG --> MET["backtesting/metrics.py<br/>Financial Metrics"]
+    ENG --> VIS["backtesting/visualization.py<br/>Equity & Drawdown Charts"]
+    FE --> RL["models/reinforcement_learning.py<br/>DQN & PPO Agents"]
+    OM["execution/order_manager.py<br/>Async Order Manager"] --> SL["execution/slippage.py<br/>Slippage Calculation"]
+    OM --> LAT["execution/latency.py<br/>Latency Monitor"]
+    FE --> DASH["dashboard.py<br/>Streamlit Dashboard"]
+```
 
 ### Usage
 
