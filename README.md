@@ -5,6 +5,7 @@ Ferramentas para analise de trading de alta frequencia: backtesting, feature eng
 [![Python](https://img.shields.io/badge/Python-3.11+-3776AB.svg)](https://python.org)
 [![PyTorch](https://img.shields.io/badge/PyTorch-2.0+-EE4C2C.svg)](https://pytorch.org)
 [![License](https://img.shields.io/badge/License-MIT-yellow.svg)](LICENSE)
+[![Docker](https://img.shields.io/badge/Docker-Ready-2496ED.svg?logo=docker)](Dockerfile)
 
 [Portugues](#portugues) | [English](#english)
 
